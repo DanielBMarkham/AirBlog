@@ -1,0 +1,109 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="Daniel B. Markham">
+
+		<meta property="twitter:account_id" content="55648990" />
+		<meta property="og:title" content="Newspaper23">
+		<meta property="og:description" content="Curated Articles: Redux">
+		<meta property="og:image" content="http://euro-travel-example.com/thumbnail.jpg">
+		<meta property="og:url" content="http://newspaper23.com/index.htm">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta property="og:site_name" content="Newspaper 23">
+		<meta name="twitter:image:alt" content="Alt text for image">
+		<meta property="fb:app_id" content="your_app_id" />
+		<meta name="twitter:site" content="@danielbmarkham">
+
+		<title>Media Template</title>
+		<link rel="stylesheet" href="css/fa-svg-with-js.css">
+		<link rel="stylesheet" href="main.css">
+		<script src="js/fontawesome-all.min.js"></script>
+		<script src="main.js"></script>
+		<script type="module" src="airblog.js"></script>
+	</head>
+	<body>
+		<div class="container" id="mainApp">
+
+			<header class="header">
+				<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+					<div class="container">
+						<a class="navbar-brand" href="index.html" v-cloak>{{atMyBlog.fields.Title}}</a>
+  
+					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#togglerMain" aria-controls="togglerMain" aria-expanded="false" aria-label="Main Nav">
+					    <span class="navbar-toggler-icon"></span>
+					  </button>
+
+
+					  <div class="collapse navbar-collapse" id="togglerMain">
+					    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					      
+					      <li class="nav-item dropdown">
+					      	<a class="nav-link dropdown-toggle" href="#" id="categoriesDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+					      	<div class="dropdown-menu bg-dark" aria-labelledby="categoriesDropDown">
+								<a class="dropdown-item nav-link" v-for="rec in atCategories.records" v-bind:href="CreateItemLink(rec,'Category')">{{ rec.fields.Name }}</a>
+					      	</div>
+					      </li>
+
+					      <li class="nav-item dropdown">
+					      	<a class="nav-link dropdown-toggle" href="#" id="questionsDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Questions</a>
+					      	<div 
+					      		class="dropdown-menu bg-dark" 
+					      		aria-labelledby="questionsDropDown">
+								<a class="dropdown-item nav-link " v-for="rec in atQuestions.records"v-bind:href="CreateItemLink(rec,'Question')"> 
+									{{ rec.fields.Name }}
+								</a>
+					      	</div>
+					      </li>
+
+					      <li class="nav-item dropdown">
+					      	<a class="nav-link dropdown-toggle" href="#" id="tagsDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags</a>
+					      	<div class="dropdown-menu bg-dark" aria-labelledby="tagsDropDown">
+								<a class="dropdown-item nav-link" v-for="rec in atTags.records" v-bind:href="CreateItemLink(rec,'Tag')" >{{ rec.fields.Name }}</a>
+					      	</div>
+					      </li>
+
+					      <li class="nav-item dropdown">
+					      	<a class="nav-link dropdown-toggle" href="#" id="authorsDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Authors</a>
+					      	<div class="dropdown-menu bg-dark" aria-labelledby="authorsDropDown">
+								<a class="dropdown-item nav-link" v-for="rec in atAuthors.records" v-bind:href="CreateItemLink(rec,'Author')" >{{ rec.fields.Name }}</a>
+					      	</div>
+					      </li>
+
+					      <li class="navbar-nav nav-item">
+					        <a class="nav-link helpabout" href="#" data-toggle="modal" data-target="#modalAbout">About</a>
+					      </li>
+					    </ul>
+					  </div>
+
+					</div>
+				</nav>
+			</header>
+
+
+
+
+	<!-- Modal About -->
+	<div class="modal" id="modalAbout" tabindex="-1" role="dialog" aria-labelledby="modalAbout" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="modalAboutTitle">{{atMyBlog.fields.Title}}</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body"  v-html="blogDescriptionToHTML"></div>
+	      <div class="modal-footer">
+			<a class="btn btn-success" href="mailto:admin@newspaper23.com">
+			  <i class="fa fa-comment pull-left"></i> Contact Site Owner</a>			
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div> 
+	</div>
+
+	</div> <!-- container !-->
+  </body>
+</html>

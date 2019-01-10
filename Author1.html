@@ -9,20 +9,20 @@
     <meta name="author" content="Daniel B. Markham" />
 
     <meta property="twitter:account_id" content="55648990" />
-    <meta property="og:title" content="Tiny Giant Books" />
-    <meta property="og:description" content="Good Info, Fun Reads" />
+    <meta property="og:title" content="Newspaper23" />
+    <meta property="og:description" content="Curated Articles: Redux" />
     <meta
       property="og:image"
       content="http://euro-travel-example.com/thumbnail.jpg"
     />
     <meta property="og:url" content="http://newspaper23.com/index.htm" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="og:site_name" content="Tiny Giant Books" />
+    <meta property="og:site_name" content="Newspaper 23" />
     <meta name="twitter:image:alt" content="Alt text for image" />
     <meta property="fb:app_id" content="your_app_id" />
     <meta name="twitter:site" content="@danielbmarkham" />
 
-    <title>Home Page</title>
+    <title>Author Template</title>
     <link rel="stylesheet" href="css/fa-svg-with-js.css" />
     <link rel="stylesheet" href="main.css" />
     <script src="js/fontawesome-all.min.js"></script>
@@ -52,12 +52,9 @@
 
             <div class="collapse navbar-collapse" id="togglerMain">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="navbar-text navbar-dark bg-dark nav-item text-light">
-                  Navigate
-                </li>
                 <li class="nav-item dropdown">
                   <a
-                    class="nav-link dropdown-toggle navbar-dark bg-dark text-light"
+                    class="nav-link dropdown-toggle"
                     href="#"
                     id="categoriesDropDown"
                     role="button"
@@ -67,14 +64,13 @@
                     >Categories</a
                   >
                   <div
-                    class="dropdown-menu navbar-dark bg-dark text-light"
+                    class="dropdown-menu bg-dark"
                     aria-labelledby="categoriesDropDown"
                   >
                     <a
-                      class="dropdown-item nav-link nav-setFilter navbar-dark bg-dark text-light"
+                      class="dropdown-item nav-link"
                       v-for="rec in atCategories.records"
-                      n23AttToFilter="n23categories"
-                      v-bind:n23ID="rec.id"
+                      v-bind:href="CreateItemLink(rec,'Category')"
                       >{{ rec.fields.Name }}</a
                     >
                   </div>
@@ -82,7 +78,7 @@
 
                 <li class="nav-item dropdown">
                   <a
-                    class="nav-link dropdown-toggle navbar-dark bg-dark text-light"
+                    class="nav-link dropdown-toggle"
                     href="#"
                     id="questionsDropDown"
                     role="button"
@@ -92,14 +88,13 @@
                     >Questions</a
                   >
                   <div
-                    class="dropdown-menu navbar-dark bg-dark text-light"
+                    class="dropdown-menu bg-dark"
                     aria-labelledby="questionsDropDown"
                   >
                     <a
-                      class="dropdown-item nav-link nav-setFilter navbar-dark bg-dark text-light"
+                      class="dropdown-item nav-link "
                       v-for="rec in atQuestions.records"
-                      n23AttToFilter="n23questions"
-                      v-bind:n23ID="rec.id"
+                      v-bind:href="CreateItemLink(rec,'Question')"
                     >
                       {{ rec.fields.Name }}
                     </a>
@@ -108,7 +103,7 @@
 
                 <li class="nav-item dropdown">
                   <a
-                    class="nav-link dropdown-toggle navbar-dark bg-dark text-light"
+                    class="nav-link dropdown-toggle"
                     href="#"
                     id="tagsDropDown"
                     role="button"
@@ -118,14 +113,13 @@
                     >Tags</a
                   >
                   <div
-                    class="dropdown-menu navbar-dark bg-dark text-light"
+                    class="dropdown-menu bg-dark"
                     aria-labelledby="tagsDropDown"
                   >
                     <a
-                      class="dropdown-item nav-link nav-setFilter navbar-dark bg-dark text-light"
+                      class="dropdown-item nav-link"
                       v-for="rec in atTags.records"
-                      n23AttToFilter="n23tags"
-                      v-bind:n23ID="rec.id"
+                      v-bind:href="CreateItemLink(rec,'Tag')"
                       >{{ rec.fields.Name }}</a
                     >
                   </div>
@@ -133,7 +127,7 @@
 
                 <li class="nav-item dropdown">
                   <a
-                    class="nav-link dropdown-toggle navbar-dark bg-dark text-light"
+                    class="nav-link dropdown-toggle"
                     href="#"
                     id="authorsDropDown"
                     role="button"
@@ -143,14 +137,13 @@
                     >Authors</a
                   >
                   <div
-                    class="dropdown-menu navbar-dark bg-dark text-light"
+                    class="dropdown-menu bg-dark"
                     aria-labelledby="authorsDropDown"
                   >
                     <a
-                      class="dropdown-item nav-link nav-setFilter navbar-dark bg-dark text-light"
+                      class="dropdown-item nav-link"
                       v-for="rec in atAuthors.records"
-                      n23AttToFilter="n23authors"
-                      v-bind:n23ID="rec.id"
+                      v-bind:href="CreateItemLink(rec,'Author')"
                       >{{ rec.fields.Name }}</a
                     >
                   </div>
@@ -158,7 +151,7 @@
 
                 <li class="navbar-nav nav-item">
                   <a
-                    class="nav-link helpabout navbar-dark bg-dark text-light"
+                    class="nav-link helpabout"
                     href="#"
                     data-toggle="modal"
                     data-target="#modalAbout"
@@ -170,46 +163,6 @@
           </div>
         </nav>
       </header>
-
-      <div id="tgbArticleListOuter">
-				<ul>
-					<li v-for="entry in atEntries.records">
-						<a v-bind:name="entry.id"></a>
-						<h2>
-							<a v-bind:tite="entry.fields.PublicDescriptionShort" v-bind:href="makeEntityIntoALink(entry, 'Entry')">
-							{{entry.fields.Title}}
-						</a>
-						</h2>
-						<p class="text-muted">
-							{{entry.fields.Title}}
-						</p>
-						<p class="text-muted byline">
-								By 
-									<span v-for="author in AuthorsForThisEntry(entry)">
-										{{author.fields.Name}} &nbsp;
-									</span>
-								on 
-									<span>
-										{{entry.createdTime | DatePretty}}
-									</span>
-							</p>
-					</li>
-				</ul>
-			</div>
-
-      <footer class="footer">
-        <nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
-          <div class="container">
-            <a class="nav navbar-brand navbar-left">&copy; 2019</a>
-            <a
-              class="nav navbar-brand navbar-right"
-              href="index.html"
-              v-cloak
-              >{{ atMyBlog.fields.Subtitle }}</a
-            >
-          </div>
-        </nav>
-      </footer>
 
       <!-- Modal About -->
       <div
@@ -238,56 +191,6 @@
             <div class="modal-body" v-html="blogDescriptionToHTML"></div>
             <div class="modal-footer">
               <a class="btn btn-success" href="mailto:admin@newspaper23.com">
-                <i class="fa fa-comment pull-left"></i> Contact Site Owner</a
-              >
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal Read Article -->
-      <div
-        class="modal"
-        id="modalArticle"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="modalArticle"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalArticleTitle">
-                {{ atMyEntry.fields.Title }}
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div id="entryBriefApp">
-                <entry-detailbrief-component
-                  :entry="atMyEntry"
-                ></entry-detailbrief-component>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <a
-                class="btn btn-success"
-                href="mailto:admin@tiny-giant-books.com"
-              >
                 <i class="fa fa-comment pull-left"></i> Contact Site Owner</a
               >
               <button

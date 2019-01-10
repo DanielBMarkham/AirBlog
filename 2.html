@@ -7,9 +7,100 @@
 		<meta name="author" content="Daniel B. Markham">
 		<title>Template 2</title>
 		<link rel="stylesheet" href="main.css">
+		<script src="main.js"></script>
+    	<script src="airdat.js"></script>
 	</head>
-	<body>
-	
-	<script src="main.js"></script>
+	<body style="background-color: grey;">
+	<div class="container" id="mainApp">
+		<header class="header">
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+				<a class="navbar-brand" href="index.html" v-cloak>{{atMyBlog.fields.Title}}</a>
+				<a class="navbar-brand">&nbsp;</a>
+				<div class="collapse navbar-collapse" id="navBarHeader">
+					<ul class="navbar-nav mr-auto">
+					</ul>
+				</div>
+				<a class="navbar-brand" href="index.html" v-cloak>{{atMyBlog.fields.Subtitle}}</a>
+			</nav>
+		</header>
+		<div id="mainContainer" v-cloak>
+				<h1>{{ atMyEntry.fields.Title }}</h1>
+				<p class="text-muted">
+					By {{ atMyEntry.fields.Author | AuthorIdToAuthorName}} on {{atMyEntry.fields.StartDate | DatePretty}}
+				</p>
+				<div id="entryContent" v-html="contentToHTML">
+				</div>
+		</div>
+		<footer class="footer">
+			<nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
+				<a class="navbar-brand">&nbsp;</a>
+				<a class="navbar-brand text-muted" href="index.html" v-cloak>{{atMyBlog.fields.Title}} &copy; 2018 Bedford Technology Group, All Rights Reserved</a>
+			</nav>
+		</footer>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			AirBlog=new AB(begin);
+		});
+	    var mainApp;
+	    function begin(airBlog) {
+	        mainApp = new Vue({
+	        el: '#mainApp',
+	        data: airBlog,
+			filters : {
+		  	  CategoryListToSpacedString(value) {
+		  		var tempDat = value.join(" ");
+		  		return tempDat;
+		  		},
+		  	  DatePretty(value) {
+	  			var dVal=moment(value);
+	  			return dVal.format("YYYY/MM/DD");
+		  		},				  		
+		  	  AuthorIdToAuthorName(value) {
+		  	  	var selectedAuthors=AirBlog.LookupAuthors(value);
+		  	  	var authorNames=selectedAuthors.map(function(elem){return elem.fields.Name;}).join(", ");
+		  	  	return authorNames;
+		  	  },
+		  	  MakeTemplateLink(rec) {
+		  	  	return rec.fields.ArticleTemplateFile + "?EntryId=" + rec.id;
+		  		}
+		  	},
+			methods : {
+		  	  adjustBrokenImageLinks(src) {
+			    // "fix" broken links by seeing if they're media tags
+			    var myImg=$(src.target)[0];
+			    var oldImgSrcLastSlash=myImg.src.lastIndexOf("/");
+			    var oldImgSrc=myImg.src.substring(oldImgSrcLastSlash+1);
+			    var possibleMatchingMediaItems=AirBlog.findMediaItemForAName(AirBlog.atMedia.records, oldImgSrc);
+			    var firstMatchingMediaItemFirstAttatchmentLink=possibleMatchingMediaItems[0].fields.Attachments[0];
+			    myImg.src=firstMatchingMediaItemFirstAttatchmentLink.url;
+			    myImg.setAttribute("class", possibleMatchingMediaItems[0].fields.Styles+" ");
+			    $(this).off("error"); // always turn img loading error off after first capture!
+				},
+			  myMediaItems() {
+				return myMediaItems=AirBlog.filterMediaItemListToThoseThatContainThisEntry(atMedia, myEntry);
+			  }
+		  	},
+		  	computed: {
+		  		contentToHTML() {
+		  			var ret=md.render(AirBlog.atMyEntry.fields.Content);
+		  			return ret;
+		  		}
+		  	},
+		  	mounted: function() {
+			    $('meta[name=description]').remove();
+			    $('head').append( '<meta name="description" content=\"' + AirBlog.atMyEntry.fields.Excerpt + '\">' );
+			    $('meta[name=author]').remove();
+			    $('head').append( '<meta name="author" content=\"' + AirBlog.atMyEntry.fields.Author + '\">' );
+			    $('title').remove();
+			    $('head').append( '<title>' + AirBlog.atMyEntry.fields.Title + '</title>' );
+			    this.$nextTick(function() {
+			    	var vm=this; // two scopes here, the vue inst and the window calling the error
+			    	$("img").on( "error", (function(event){vm.adjustBrokenImageLinks(event);}) );
+			    	});
+		  		},
+	      });
+		}
+	  </script>
 	</body>
 </html>
