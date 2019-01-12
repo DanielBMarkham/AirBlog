@@ -17,105 +17,56 @@
 		<meta name="twitter:site" content="@danielbmarkham">
 
 		<title>Tag Template</title>
-		<link rel="stylesheet" href="css/fa-svg-with-js.css">
-		<link rel="stylesheet" href="main.css">
-		<script src="js/fontawesome-all.min.js"></script>
-		<script src="main.js"></script>
-		<script type="module" src="airblog.js"></script>
+		<link rel="stylesheet" href="css/fa-svg-with-js.css" />
+    <link rel="stylesheet" href="library.css" />
+    <link rel="stylesheet" href="main.css" />
+    <script src="js/fontawesome-all.min.js"></script>
+    <script src="library.js"></script>
+    <script type="module" src="airblog.js"></script>
+    <script src="main.js"></script>
 	</head>
 	<body>
 		<div class="container" id="mainApp">
 
-			<header class="header">
-				<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-					<div class="container">
-						<a class="navbar-brand" href="index.html" v-cloak>{{atMyBlog.fields.Title}}</a>
-  
-					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#togglerMain" aria-controls="togglerMain" aria-expanded="false" aria-label="Main Nav">
-					    <span class="navbar-toggler-icon"></span>
-					  </button>
-
-
-					  <div class="collapse navbar-collapse" id="togglerMain">
-					    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-					      
-					      <li class="nav-item dropdown">
-					      	<a class="nav-link dropdown-toggle" href="#" id="categoriesDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
-					      	<div class="dropdown-menu bg-dark" aria-labelledby="categoriesDropDown">
-								<a class="dropdown-item nav-link" v-for="rec in atCategories.records" v-bind:href="CreateItemLink(rec,'Category')">{{ rec.fields.Name }}</a>
-					      	</div>
-					      </li>
-
-					      <li class="nav-item dropdown">
-					      	<a class="nav-link dropdown-toggle" href="#" id="questionsDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Questions</a>
-					      	<div 
-					      		class="dropdown-menu bg-dark" 
-					      		aria-labelledby="questionsDropDown">
-								<a class="dropdown-item nav-link " v-for="rec in atQuestions.records"v-bind:href="CreateItemLink(rec,'Question')"> 
-									{{ rec.fields.Name }}
-								</a>
-					      	</div>
-					      </li>
-
-					      <li class="nav-item dropdown">
-					      	<a class="nav-link dropdown-toggle" href="#" id="tagsDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags</a>
-					      	<div class="dropdown-menu bg-dark" aria-labelledby="tagsDropDown">
-								<a class="dropdown-item nav-link" v-for="rec in atTags.records" v-bind:href="CreateItemLink(rec,'Tag')" >{{ rec.fields.Name }}</a>
-					      	</div>
-					      </li>
-
-					      <li class="nav-item dropdown">
-					      	<a class="nav-link dropdown-toggle" href="#" id="authorsDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Authors</a>
-					      	<div class="dropdown-menu bg-dark" aria-labelledby="authorsDropDown">
-								<a class="dropdown-item nav-link" v-for="rec in atAuthors.records" v-bind:href="CreateItemLink(rec,'Author')" >{{ rec.fields.Name }}</a>
-					      	</div>
-					      </li>
-
-					      <li class="navbar-nav nav-item">
-					        <a class="nav-link helpabout" href="#" data-toggle="modal" data-target="#modalAbout">About</a>
-					      </li>
-					    </ul>
-					  </div>
-
-					</div>
-				</nav>
-			</header>
+				<header class="header">
+						<nav class="navbar navbar-dark fixed-top bg-dark">
+								<a class="navbar-brand" href="index.html" v-cloak>{{atMyBlog.fields.Title}}</a>
+								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#togglerMain" aria-controls="togglerMain" aria-expanded="false" aria-label="Main Nav">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+								<div class="collapse navbar-collapse" id="togglerMain">
+									<ul class="navbar-nav">
+										<li class="nav-item">
+											<nav-menu-sub-list :itemlist="atCategories.records" entityname='Category' tablename='Categories'></nav-menu-sub-list>
+										</li>
+										<li class="nav-item">
+												<nav-menu-sub-list :itemlist="atTags.records" entityname='Tag' tablename='Tags'></nav-menu-sub-list>
+											</li>
+										<li class="nav-item">
+												<nav-menu-sub-list :itemlist="atQuestions.records" entityname='Question' tablename='Questions'></nav-menu-sub-list>
+											</li>
+										<li class="nav-item bg-dark navbar-dark">
+											<a class="nav-item helpabout bg-dark navbar-dark" href="#" data-toggle="modal" data-target="#modalAbout">About</a>
+										</li>
+									</ul>
+								</div>
+						</nav>
+					</header>
 
 			<div id="itemDetailApp">
 			  <tag-detail-component :tag="atMyTag"></tag-detail-component>
 			</div>
 
-			<footer class="footer">
-				<nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
-					<div class="container">
-						<a class="nav navbar-brand navbar-left" >&copy; 2019</a>
-						<a class="nav navbar-brand navbar-right" href="index.html" v-cloak>{{atMyBlog.fields.Subtitle}}</a>
+      <footer class="footer">
+        <plain-footer :blog="atMyBlog"></plain-footer>
+      </footer>
+
+      <!-- Modal About the blog -->
+      <div class="modal" id="modalAbout" tabindex="-1" role="dialog" aria-labelledby="modalAbout" aria-hidden="true">
+					<div>
+						<modal-about-the-blog :atmyblog="atMyBlog"></modal-about-the-blog>
 					</div>
-				</nav>
-			</footer>
-
-
-
-
-	<!-- Modal About -->
-	<div class="modal" id="modalAbout" tabindex="-1" role="dialog" aria-labelledby="modalAbout" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="modalAboutTitle">{{atMyBlog.fields.Title}}</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body"  v-html="blogDescriptionToHTML"></div>
-	      <div class="modal-footer">
-			<a class="btn btn-success" href="mailto:admin@newspaper23.com">
-			  <i class="fa fa-comment pull-left"></i> Contact Site Owner</a>			
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div> 
-	</div>
+			</div>
 
 	</div> <!-- container !-->
   </body>
