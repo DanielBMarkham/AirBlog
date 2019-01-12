@@ -85,7 +85,10 @@ main {
 	overflow: hidden;
 	margin:0;
 }
-
+#holder{
+    position: fixed;
+    top: 4rem;
+}
 .articleList {
     list-style: none;
     z-index: 0;
@@ -284,7 +287,6 @@ main ul.tagCloud li:last-child::after {
 }
 
 div#tgbArticleListOuter {
-    padding-top: 5rem;
 }
 #tgbArticleListOuter >ul {
     list-style: none;

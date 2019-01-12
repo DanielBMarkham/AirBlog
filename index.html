@@ -84,45 +84,9 @@
         aria-labelledby="modalArticle"
         aria-hidden="true"
       >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalArticleTitle">
-                {{ atMyEntry.fields.Title }}
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div id="entryBriefApp">
-                <entry-detailbrief-component
-                  :entry="atMyEntry"
-                ></entry-detailbrief-component>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <a
-                class="btn btn-success"
-                href="mailto:admin@tiny-giant-books.com"
-              >
-                <i class="fa fa-comment pull-left"></i> Contact Site Owner</a
-              >
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
+      <div>
+        <modal-read-article :atmyBlog="atMyBlog" :atmyentry="atMyEntry"></modal-read-article>
+      </div>
       </div>
     </div>
     <!-- container !-->

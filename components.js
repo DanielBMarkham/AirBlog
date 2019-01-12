@@ -236,7 +236,7 @@ var EntryListPlainComponent = {
       <li v-for="entry in entries" v-cloak>
         <a v-bind:name="entry.id"></a>
         <h2>
-          <a v-bind:tite="entry | PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(entry,'Entity')">
+          <a v-bind:title="entry | PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(entry,'Entry')">
           {{entry.fields.Title}}
         </a>
         </h2>
@@ -458,7 +458,7 @@ var ModalAboutTheBlog = {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" v-html="blogDescriptionToHTML"></div>
+      <div class="modal-body" v-html="MarkdownContentToHtml(atmyblog.fields.LongFormDescription)"></div>
       <div class="modal-footer">
         <a class="btn btn-success" :href="'mailto:'+atmyblog.fields.ContactEmail">
           <i class="fa fa-comment pull-left"></i> Contact Site Owner</a
@@ -477,14 +477,70 @@ var ModalAboutTheBlog = {
   `,
   props: ["atmyblog"],
   mixins: [AirBlogBase],
-  computed: {
-    blogDescriptionToHTML(e) {
-      var ret = this.$md.render(
-        document.AirBlog.atMyBlog.fields.LongFormDescription
-      );
-      return ret;
-    }
+  mounted: function() {
+    $(document).on("shown.bs.modal", "#modalAbout", function(event) {
+      $(".navbar-collapse").collapse("hide");
+      $(".modal-backdrop").addClass("modalBackdropTweak");
+    });
   }
+}
+var ModalReadArticle = {
+  template: `
+  
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modalArticleTitle">
+        {{ atmyentry.fields.Title }}
+      </h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="entryBriefApp">
+        <entry-detailbrief-component
+          :entry="atmyentry"
+        ></entry-detailbrief-component>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-success"
+        :href="'mailto:'+atmyblog.fields.ContactEmail">
+        <i class="fa fa-comment pull-left"></i>
+         Contact Site Owner
+      </a>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-dismiss="modal"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+  `,
+  props: ["atmyblog", "atmyentry"],
+  mixins: [AirBlogBase],
+  components: {
+    EntryDetailbriefComponent
+  },
+  mounted: function() {
+    $(document).on("shown.bs.modal", "#modalArticle", function(event) {
+      var triggerElement = $(event.relatedTarget); // Button that triggered
+      var elementId = triggerElement[0].getAttribute("href");
+      document.AirBlog.SelectMyEntryById(elementId);
+      $(".modal-backdrop").addClass("modalBackdropTweak");
+    });
+  }
+
 }
 export {
   AirBlogBase,
@@ -497,5 +553,6 @@ export {
   EntryExploreFooter,
   PlainFooter,
   NavMenuSubList,
-  ModalAboutTheBlog
+  ModalAboutTheBlog,
+  ModalReadArticle
 };

@@ -1,0 +1,73 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="Daniel B. Markham">
+
+		<meta property="twitter:account_id" content="55648990" />
+		<meta property="og:title" content="Newspaper23">
+		<meta property="og:description" content="Curated Articles: Redux">
+		<meta property="og:image" content="http://euro-travel-example.com/thumbnail.jpg">
+		<meta property="og:url" content="http://newspaper23.com/index.htm">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta property="og:site_name" content="Newspaper 23">
+		<meta name="twitter:image:alt" content="Alt text for image">
+		<meta property="fb:app_id" content="your_app_id" />
+		<meta name="twitter:site" content="@danielbmarkham">
+
+		<title>Question Template</title>
+		<link rel="stylesheet" href="css/fa-svg-with-js.css" />
+    <link rel="stylesheet" href="library.css" />
+    <link rel="stylesheet" href="main.css" />
+    <script src="js/fontawesome-all.min.js"></script>
+    <script src="library.js"></script>
+    <script type="module" src="airblog.js"></script>
+    <script src="main.js"></script>
+	</head>
+	<body>
+		<div class="container" id="mainApp">
+				<header class="header">
+						<nav class="navbar navbar-dark fixed-top bg-dark">
+								<a class="navbar-brand" href="index.html" v-cloak>{{atMyBlog.fields.Title}}</a>
+								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#togglerMain" aria-controls="togglerMain" aria-expanded="false" aria-label="Main Nav">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+								<div class="collapse navbar-collapse" id="togglerMain">
+									<ul class="navbar-nav">
+										<li class="nav-item">
+											<nav-menu-sub-list :itemlist="atCategories.records" entityname='Category' tablename='Categories'></nav-menu-sub-list>
+										</li>
+										<li class="nav-item">
+												<nav-menu-sub-list :itemlist="atTags.records" entityname='Tag' tablename='Tags'></nav-menu-sub-list>
+											</li>
+										<li class="nav-item">
+												<nav-menu-sub-list :itemlist="atQuestions.records" entityname='Question' tablename='Questions'></nav-menu-sub-list>
+											</li>
+										<li class="nav-item bg-dark navbar-dark">
+											<a class="nav-item helpabout bg-dark navbar-dark" href="#" data-toggle="modal" data-target="#modalAbout">About</a>
+										</li>
+									</ul>
+								</div>
+						</nav>
+					</header>
+
+
+			<div id="itemDetailApp">
+			  <question-detail-component :question="atMyQuestion"></question-detail-component>
+			</div>
+
+      <footer class="footer">
+        <plain-footer :blog="atMyBlog"></plain-footer>
+      </footer>
+
+      <!-- Modal About the blog -->
+      <div class="modal" id="modalAbout" tabindex="-1" role="dialog" aria-labelledby="modalAbout" aria-hidden="true">
+					<div>
+						<modal-about-the-blog :atmyblog="atMyBlog"></modal-about-the-blog>
+					</div>
+			</div>
+
+	</div> <!-- container !-->
+  </body>
+</html>

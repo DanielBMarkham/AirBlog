@@ -9,7 +9,8 @@ import {
   EntryExploreFooter,
   PlainFooter,
   NavMenuSubList,
-  ModalAboutTheBlog
+  ModalAboutTheBlog,
+  ModalReadArticle
 } from "/components.js";
 Vue.prototype.$md = window.markdownit({
   html: true, // Enable HTML tags in source
@@ -348,32 +349,6 @@ function AB(callback) {
 		};
 }
 
-$(document).on("shown.bs.modal", "#modalArticle", function(event) {
-  var triggerElement = $(event.relatedTarget); // Button that triggered
-  var elementId = triggerElement[0].getAttribute("href");
-  document.AirBlog.SelectMyEntryById(elementId);
-  $(".modal-backdrop").addClass("modalBackdropTweak");
-});
-$(document).on("shown.bs.modal", "#modalAbout", function(event) {
-  $(".navbar-collapse").collapse("hide");
-  $(".modal-backdrop").addClass("modalBackdropTweak");
-});
-$(".nav-setFilter").on("click", function() {
-  // figure out what we're filtering and close the menu
-  $(".navbar-toggler").collapse("hide");
-});
-
-function categoryClick(e) {
-  var catId = e.attributes.ncat.nodeValue;
-  $(".articleItemOuter").hide();
-  $("." + catId)
-    .parent()
-    .show();
-}
-
-$(document).ready(function() {
-  document.AirBlog = new AB(begin);
-});
 
 var mainApp;
 function begin(airBlog) {
@@ -391,7 +366,8 @@ function begin(airBlog) {
       EntryExploreFooter,
       PlainFooter,
       NavMenuSubList,
-      ModalAboutTheBlog
+      ModalAboutTheBlog,
+      ModalReadArticle
     },
     computed: {
       menuItemToLink(rec, itemType) {
@@ -400,3 +376,9 @@ function begin(airBlog) {
     }
   });
 }
+
+// It all starts here
+// Note the decision to use an object and not an anonymous function
+$(document).ready(function() {
+  document.AirBlog = new AB(begin);
+});
