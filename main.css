@@ -1,297 +1,409 @@
-
-
-.header {position: sticky; z-index: 1050;}
-.nav-item {color:white; width: 10em; display: table-cell; text-align:center;}
-#mainContainer {padding: 60px 15px 0;}
-.entryImgInlineLeft {width: 25%; margin-right: 1em; }
-.entryImgInlineRight {width: 25%; margin-left: 1em; }
-[v-cloak] {display: none;}
-.footer {position: sticky; margin-top:7em;}
-.blogSignature{max-height: 7em;}
-.imgCenter{width: 100%; margin-left:auto; margin-right:auto;}
-.modalBackdropTweak {
-	z-index: -1;
+[v-cloak] {
+  display: none;
 }
-.EntryListQuestions{
-    display: inline;	
-    text-align: center;
-    padding: 0;
-}
-.EntryListQuestions li {
-	list-style: none;
-	padding-bottom: .5rem;
-}
-.EntryListQuestions li a {
-	min-width: 100%;
-	max-width: 100%;
-}
-
-
-.articleLink {
-    display: block;
-    padding: 2%;
-    }
 html {
-	min-height: 100%;
-	height: 100%;
+  min-height: 100%;
+  height: 100%;
 }
 body {
-	position: fixed;
-	min-height: 100%;
-	height: 100%;
-    min-width: 480px;
-    width:100%;
-	overflow: hidden;
+  position: fixed;
+  min-height: 100%;
+  height: 100%;
+  min-width: 480px;
+  width: 100%;
+  overflow: hidden;
 }
 #mainApp {
-	position: fixed;
-	margin:auto;
-    min-height: 100%;
-    height: 100%;	
-    min-width: 100%;
-    width:100%;
-	overflow: hidden;
-	margin:0;
+  position: fixed;
+  margin: auto;
+  min-height: 100%;
+  height: 100%;
+  min-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
-#itemListApp {
-	position: fixed;
-    min-height: 100%;
-    height: 100%;
-    min-width: 100%;
-    width:100%;
-	margin:0;
-    margin-top: 60px;
-	overflow: hidden;
+#holder {
+  position: fixed;
+  top: 4rem;
+  height: 100%;
+  width: 100%;
 }
-.ComponentListWrapper {
-	position: fixed;
-	margin:auto;
-    min-height: 100%;
-    height: 100%;	
-    min-width: 100%;
-    width:100%;
-    min-width: 100%;
-    width:100%;
-	overflow: hidden;
-	margin:0;
+.header {
+  position: sticky;
+  z-index: 1050;
 }
-main {
-	position: fixed;
-	margin:auto;
-    min-height: 100%;
-    height: 100%;	
-    min-width: 100%;
-    width:100%;
-	overflow: hidden;
-	margin:0;
+.main {
+  position: fixed;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 7rem;
+  overflow-y: hidden;
 }
-#holder{
-    position: fixed;
-    top: 4rem;
-}
-.articleList {
-    list-style: none;
-    z-index: 0;
-    position: fixed;
-    margin: 0;
-    margin-right:120px;
-    min-height: 100%;
-    height: 100%;
-    -webkit-overflow-scrolling: touch;
-    min-width: 100%;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
-.articleList:last-child {
-    padding-bottom: 240px;
-	}
+.vueComponent {
 
-.articleItemOuter {
-    margin-bottom: 3rem;
-    overflow: hidden;
-    margin-right: 30px;
-    border-top-right-radius: 1.5rem;
-    border-bottom-left-radius: 1.5rem;
-    max-width: 600px;
-}
-.articleItemInner {
-    margin: -1.25rem;
-}
-
-
-.card-title {
-    background-color: black;
-    color: white;
-    text-align: center;	
-    padding-left: 3.5rem;
-    padding-right: 3.5rem;
-	min-height: 2rem;
-}
-.card-subtitle {
-    margin-top: -.375rem;
-    margin-bottom: 0;
-    text-align: justify;
-    font-style: italic;
-    font-weight: lighter;
-
-    margin-left: 1rem;
-    margin-right: 1rem
-}
-.card-text {
-
-    margin-left: 1rem;
-    margin-right: 1rem
-
-}
-
-.entryListBottomLinkRow{
-    min-width: 100%;
-    width: 100%;
-    overflow-y: hidden;
-    overflow-x: overlay;
-    background-color: gray;
-    height: 2em;
-    text-align: center;
-}
-.entryListBottomLinkBox:firstChild {
-	margin-left:15px;
-	font-weight: bold;
-}
-.entryListBottomLinkBox:lastChild {
-	margin-right:15px;
-	font-weight: bold;
-}
-.entryListBottomLinkBox {
-    overflow: hidden;
-    display: inline-grid;
-    width: 20%;
-    min-width: 20%;
-    margin-right: 1%;
-    margin-left: 1%;
-}
-.card-source-link {
-	text-align: center;
-}
-.card-other-link {
-	text-align: center;
-}
-.card-bottomLeftLink {
-	text-align: left;
-}
-.card-bottomRightLink {
-	text-align: right;
-}
-
-.btn-votedown {
-	top:0;
-    left: 0;
-    width:3.5rem;
-	display: table-cell;
-    position: absolute;
-}
-.btn-voteup {
-	top:0;
-    right: 0;
-    width:3.5rem;
-	display: table-cell;
-    position: absolute;
-}
-
-#modalAbout {
-
-}
-#itemDetailApp {
-	position: fixed;
-    min-height: 100%;
-    height: 100%;
-    min-width: 100%;
-    width:100%;
-	margin:0;
-    margin-top: 60px;
-	overflow: hidden;
-}
-#itemDetailApp main h1 {
-    height: 120px;
-    min-height: 120px;
-    position: fixed;
-    top:60px;
-    overflow-y: hidden;	
-    font-size: xx-large;
-}
-#itemDetailApp main p.byline{
-    height: 1.5rem;
-    min-height: 1.5rem;
-    position: fixed;
-    overflow-y: hidden;		
-    top:180px;
-	border-bottom: gray solid .1rem;    
-}
-#entryContent{
-    height: 100%;
-    min-height: 100%;
-    overflow-y: auto;
-    position: fixed;
-    top: 240px;
-}
-#itemDetailApp main ul.tagCloud{
-    height: 60px; 
-    min-height: 60px; 
-    overflow-y: auto; 
-    position: fixed; 
-    top: 210px; 
-    left: -15px;
-}
-
-main ul.tagCloud {
-    width: 100%;
-    min-width: 100%;
-    text-align: center;
-    padding-left: 0;
-    margin-left: 0;
-}
-main .tagCloud li {
-    list-style: none;
-    display: inline;
-    white-space: nowrap;
-    font-size: x-small;
-    }
-main .tagCloud li:after { 
-    content: " \00b7";
-    font-size: large;
-    font-weight: bold;
-    position: relative;
-    top: .1em;
-    padding-right: .2em;
-   }
-
-main ul.tagCloud li:last-child::after { 
-	content: none; 
-    font-size:normal;
-    font-weight: normal;
-    position: initial;
-}
-
-.lastContentParagraph {
-	padding-bottom: 300px;
-}
-#togglerExplore a {
-	
-}
-#togglerExplore li {
-	
-}
-
-.dropdown-content::after {
- content: '';
 }
 
 div#tgbArticleListOuter {
+
 }
-#tgbArticleListOuter >ul {
-    list-style: none;
-    padding-left: 0;
+
+#tgbArticleListOuter > ul {
+  list-style: none;
+  padding-left: 0;
+  overflow-y: auto;
+  height: 100%;
+  padding-left: 2rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
 }
-navbar-toggler :{
-    border:0;
+
+
+.footer {
+  position: sticky;
+}
+
+
+.nav-item {
+  color: white;
+  width: 10em;
+  display: table-cell;
+  text-align: center;
+}
+#mainContainer {
+  padding: 60px 15px 0;
+}
+.entryImgInlineLeft {
+  width: 25%;
+  margin-right: 1em;
+}
+.entryImgInlineRight {
+  width: 25%;
+  margin-left: 1em;
+}
+.blogSignature {
+  max-height: 7em;
+}
+.imgCenter {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.modalBackdropTweak {
+  z-index: -1;
+}
+
+#itemListApp {
+  position: fixed;
+  min-height: 100%;
+  height: 100%;
+  min-width: 100%;
+  width: 100%;
+  margin: 0;
+  margin-top: 60px;
+  overflow: hidden;
+}
+.ComponentListWrapper {
+  position: fixed;
+  margin: auto;
+  min-height: 100%;
+  height: 100%;
+  min-width: 100%;
+  width: 100%;
+  min-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+.articleList {
+  list-style: none;
+  z-index: 0;
+  position: fixed;
+  margin: 0;
+  margin-right: 120px;
+  min-height: 100%;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  min-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.articleList:last-child {
+  padding-bottom: 240px;
+}
+
+.articleItemOuter {
+  margin-bottom: 3rem;
+  overflow: hidden;
+  margin-right: 30px;
+  border-top-right-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+  max-width: 600px;
+}
+.articleItemInner {
+  margin: -1.25rem;
+}
+
+.card-title {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+  min-height: 2rem;
+}
+.card-subtitle {
+  margin-top: -0.375rem;
+  margin-bottom: 0;
+  text-align: justify;
+  font-style: italic;
+  font-weight: lighter;
+
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.card-text {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.entryListBottomLinkRow {
+  min-width: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: overlay;
+  background-color: gray;
+  height: 2em;
+  text-align: center;
+}
+.entryListBottomLinkBox:firstchild {
+  margin-left: 15px;
+  font-weight: bold;
+}
+.entryListBottomLinkBox:lastchild {
+  margin-right: 15px;
+  font-weight: bold;
+}
+.entryListBottomLinkBox {
+  overflow: hidden;
+  display: inline-grid;
+  width: 20%;
+  min-width: 20%;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+.card-source-link {
+  text-align: center;
+}
+.card-other-link {
+  text-align: center;
+}
+.card-bottomLeftLink {
+  text-align: left;
+}
+.card-bottomRightLink {
+  text-align: right;
+}
+
+.btn-votedown {
+  top: 0;
+  left: 0;
+  width: 3.5rem;
+  display: table-cell;
+  position: absolute;
+}
+.btn-voteup {
+  top: 0;
+  right: 0;
+  width: 3.5rem;
+  display: table-cell;
+  position: absolute;
+}
+
+
+.lastContentParagraph {
+  padding-bottom: 300px;
+}
+
+/**
+.dropdown-content::after {
+  content: "";
+}**/
+
+/**
+ENTRY DETAIL FULL COMPONENT
+**/
+.atEntryDetailFullComponent .longTextWrapper {
+  overflow-y: auto;
+  height: 100%;
+}
+.atEntryDetailFullComponent>div.entryDetailHeader{
+  margin-left:1rem;
+  margin-right:1rem;
+  overflow-y: hidden;
+}
+.atEntryDetailFullComponent>div.entryDetailHeader>h1{
+  height: 10vh;
+  text-align: center;
+  font-size: calc(75% + 2vmax);
+  vertical-align: middle;
+  overflow-y: overlay;
+}
+.atEntryDetailFullComponent>div.entryDetailHeader>ul.tagCloud {
+  height: 9vh;
+  text-align: center;
+  overflow-y: hidden;
+  padding-left: 0;
+  margin-left: 0;
+  list-style: none;
+  overflow-x: hidden;
+  width: 100%;
+}
+.atEntryDetailFullComponent>div.entryDetailHeader>ul.tagCloud li {
+  list-style: none;
+  display: inline;
+  font-size: 2.5vh;
+}
+.atEntryDetailFullComponent>div.entryDetailHeader>ul.tagCloud li:after {
+  content: " \00b7";
+  font-weight: bold;
+  position: relative;
+  padding-right: .25rem;
+}
+.atEntryDetailFullComponent .entryDetailHeader  ul.tagCloud li:last-child::after {
+  content: none;
+  padding-right: 0;
+  font-size: normal;
+  font-weight: normal;
+  position: initial;
+}
+.atEntryDetailFullComponent>div.entryDetailHeader>ul.tagCloud li>a {
+  white-space: nowrap;
+}
+
+.atEntryDetailFullComponent .entryDetailHeader>p.byline {
+  overflow-y: hidden;
+  border-bottom: gray solid 0.1rem;
+}
+.atEntryDetailFullComponent>div.entryDetailContentOuter {
+  position: fixed;
+  top: 38vh;
+  width: 100%;
+  height: 100%;
+}
+
+.atEntryDetailFullComponent>div.entryDetailContentOuter>div.entryDetailContentInner {
+  margin-right: 2rem;
+  overflow-y: auto;
+  height: 100%;
+  padding-left: 2rem;
+  margin-left: -1rem;
+  margin-right: -2rem;
+  padding-right: 2rem;
+  padding-bottom: 12rem;
+}
+.atEntryDetailFullComponent>div.entryDetailContentOuter>div.entryDetailContentInner>*:last-child {
+  min-height:400px;
+  padding-bottom:400px;
+}
+
+
+/**
+EntryListPlainComponent - barebones html list - what's needed?
+**/
+div.atEntryListPlainComponent>div.longTextWrapper{
+  height: 100%;
+}
+div.atEntryListPlainComponent>div.longTextWrapper ul {
+  list-style: none;
+  overflow-y: auto;
+  height: 100%;
+  padding-left: 2rem;
+  margin-left: -1rem;
+  margin-right: -2rem;
+  padding-right: 2rem;
+  padding-bottom: 4rem;
+}
+div.atEntryListPlainComponent>div.longTextWrapper .tagBar{
+  padding:0;
+}
+div.atEntryListPlainComponent>div.longTextWrapper .tagLink{
+  padding:0;
+  white-space: normal;
+}
+
+
+
+.itemDetailHeader {
+  position: sticky;
+  display:block;
+}
+.itemDetailHeaderContent {
+  position: fixed;
+  top: 4rem;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  height: 22vh;
+  margin-left: 1em;
+  margin-right: 1em;
+  border-bottom: gray solid 0.1rem;
+}
+.itemDetailHeaderContent>h1 {
+  height: 6.25vh;
+  overflow-y: hidden;
+  margin: 0;
+}
+.itemDetailHeaderContent>.itemShortDescription {
+  height: 14vh;
+  position: relative;
+  top: 1vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemDetailContentOuter {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  top: 23vh;
+}
+.itemDetailContentInner {
+  margin-left: 1em;
+  margin-right: -1em;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 1em;
+}
+.itemDetailContentInner>*:last-child{
+  min-height: 200px;
+  padding-bottom: 200px;
+}
+
+
+
+.EntryListQuestions {
+  display: inline;
+  text-align: center;
+  padding: 0;
+}
+.EntryListQuestions li {
+  list-style: none;
+  padding-bottom: 0.5rem;
+}
+.EntryListQuestions li a {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.articleLink {
+  display: block;
+  padding: 2%;
 }

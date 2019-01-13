@@ -44,10 +44,12 @@ var AirBlogBase = Vue.extend({
       }
     },
     MarkdownContentToHtmlRemoveLinks(stuff) {
-      const regex = /\[(.*?)\]\((.+?)\)/gm;
-      var stuffNoLinks = stuff.replace(regex, "$1");
-      var ret = this.$md.render(stuffNoLinks);
-      return ret;
+      if(stuff!=undefined) {
+        const regex = /\[(.*?)\]\((.+?)\)/gm;
+        var stuffNoLinks = stuff.replace(regex, "$1");
+        var ret = this.$md.render(stuffNoLinks);
+        return ret;
+      } else {return "";}
     },
     MakeEntityIntoALink(entity, itemType) {
       return document.AirBlog.CreateItemLink(entity, itemType);
@@ -128,7 +130,7 @@ var AirBlogBase = Vue.extend({
       return ret;
     }
   },
-  mounted: 
+  mounted:
     function(){
     $('meta[name=description]').remove();
     $('head').append( '<meta name="description" content=\"' + document.AirBlog.atMyEntry.fields.Excerpt + '\">' );
@@ -145,7 +147,7 @@ var AirBlogBase = Vue.extend({
 
 var EntryListComponent = {
   template: `
-  <div class="ComponentListWrapper">
+  <div class="atEntryListComponent ComponentListWrapper">
     <main role="main" class="">
       <div class="articleList">
         <div class="card articleItemOuter" v-for="rec in entries">
@@ -189,7 +191,9 @@ var EntryListComponent = {
             </div>
           </div>
         </div>
-      </div>
+        <div class="card articleItemOuter"></div>
+        <div class="card articleItemOuter"></div>
+        </div>
     </main>
   </div>
 
@@ -231,31 +235,42 @@ var EntryListComponent = {
 
 var EntryListPlainComponent = {
   template : `
-  <div id="tgbArticleListOuter">
-    <ul>
-      <li v-for="entry in entries" v-cloak>
-        <a v-bind:name="entry.id"></a>
-        <h2>
-          <a v-bind:title="entry | PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(entry,'Entry')">
-          {{entry.fields.Title}}
-        </a>
-        </h2>
-        <p class="text-muted">
-          {{entry.fields.Excerpt}}
-        </p>
-        <p class="text-muted byline">
-            By
-              <span v-for="author in LookupRelatedItems(entry, 'Authors')">
-                {{author.fields.Name}} &nbsp;
-              </span>
-            on
-              <span>
-                {{entry.createdTime | DatePretty}}
-              </span>
+  <div class="atEntryListPlainComponent">
+    <div class="longTextWrapper">
+      <ul>
+        <li v-for="entry in entries" v-cloak>
+          <a v-bind:name="entry.id"></a>
+          <h2>
+            <a v-bind:title="entry | PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(entry,'Entry')">
+            {{entry.fields.Title}}
+          </a>
+          </h2>
+          <p class="text-muted byline">
+              By
+                <span v-for="author in LookupRelatedItems(entry, 'Authors')">
+                  {{author.fields.Name}} &nbsp;
+                </span>
+              on
+                <span>
+                  {{entry.createdTime | DatePretty}}
+                </span>
+            </p>
+            <div class="navbar navbar-collapse justify-content-between tagBar">
+              <div class="navbar-nav mr-auto"  v-for="tag in LookupRelatedItems(entry, 'Tags')">
+                <a class="nav-item nav-link btn text-dark tagLink" v-bind:href="MakeEntityIntoALink(tag, 'Tag')" :title="tag.fields.PublicDescriptionShort" v-html="tag.fields.Name"></a>
+              </div>
+              <div class="navbar-nav mr-auto"  v-for="question in LookupRelatedItems(entry, 'Questions')">
+                <a class="nav-item nav-link btn text-dark tagLink" v-bind:href="MakeEntityIntoALink(question, 'Question')" :title="question.fields.PublicDescriptionShort" v-html="question.fields.Name"></a>
+              </div>
+            </div>
+          <p class="text-muted">
+            {{entry.fields.Excerpt}}
           </p>
-          <p>{{entry | LookupItemsAndFieldsAndSeparateBySpace('Tags', 'Name')}}</p>
-      </li>
-    </ul>
+
+
+            </li>
+      </ul>
+    </div>
   </div>
 
 
@@ -265,12 +280,12 @@ var EntryListPlainComponent = {
 
 }
 
-var EntryDetailbriefComponent = {
+var EntryDetailBriefComponent = {
   template: `
-        
-  <div>
+
+  <div class="atEntryDetailBriefComponent">
     <div id="entryContentBrief" v-html="MarkdownContentToHtmlRemoveLinks(entry.fields.Content)">
-    </div> 
+    </div>
   </div>
 
   `,
@@ -279,27 +294,29 @@ var EntryDetailbriefComponent = {
   mounted: function() {}
 };
 
-var EntryDetailfullComponent = {
+var EntryDetailFullComponent = {
   template: `
-  <div class="ComponentListWrapper">
-    <main role="main" class="">
-    <h1>{{entry.fields.Title}}</h1>
-    <p class="text-muted byline">
-      By 
-        <span v-for="author in LookupRelatedItems(entry, 'Authors')">
-          {{author.fields.Name}} &nbsp;
-        </span>
-      on 
-        <span>
-          {{entry.createdTime | DatePretty}}
-        </span>
-    </p>
-    <ul class='tagCloud'>
-      <li v-for="tag in LookupRelatedItems(entry, 'Tags')"><a v-bind:href="MakeEntityIntoALink(tag, 'Tag')" v-html="tag.fields.Name"></a></li>
-    </ul>
-    <div id="entryContent" v-html="MarkdownContentToHtml(entry.fields.Content)"></div>
-    </main>
-  </div> 
+  <div class="atEntryDetailFullComponent longTextWrapper">
+    <div class="entryDetailHeader">
+      <h1>{{entry.fields.Title}}</h1>
+      <ul class='tagCloud'>
+        <li v-for="tag in LookupRelatedItems(entry, 'Tags')"><a v-bind:href="MakeEntityIntoALink(tag, 'Tag')" v-html="tag.fields.Name"></a></li>
+      </ul>
+      <p class="text-muted byline">
+        By
+          <span v-for="author in LookupRelatedItems(entry, 'Authors')">
+            {{author.fields.Name}} &nbsp;
+          </span>
+        on
+          <span>
+            {{entry.createdTime | DatePretty}}
+          </span>
+      </p>
+    </div> <!-- entry detail header !-->
+    <div class="entryDetailContentOuter">
+      <div class="entryDetailContentInner" v-html="MarkdownContentToHtml(entry.fields.Content)"></div>
+    </div>
+  </div>
 
   `,
   props: ["entry"],
@@ -316,46 +333,69 @@ var EntryDetailfullComponent = {
 
 var TagDetailComponent = {
   template: `
-  <div class="ComponentListWrapper">
-    <main role="main" class="">
-    <h3>{{tag.fields.Name}}</h3>
-    <ul>
-      <li v-for="entry in LookupRelatedItems(tag, 'Entries')">
-        <a class="simpleEntryListItem" v-bind:href="entry | MakeTemplateLink('Entry')">
-          <span>{{entry.fields.Title}}</span>
-          <span>{{entry.fields.Excerpt}}</span class="text-muted">
-        </a>
-      </li>
-    </ul>
-    </main>
+  <div class="atTagDetailComponent">
+    <div class="longTextWrapper">
+      <div class="itemDetailHeader">
+        <div class="itemDetailHeaderContent">
+          <h1>{{tag.fields.Name}}</h1>
+          <div class="itemShortDescription" v-html="MarkdownContentToHtmlRemoveLinks(tag.fields.PublicDescriptionShort)">moo</div>
+        </div>
+      </div>
+      <div class="itemDetailContentOuter">
+        <div class="itemDetailContentInner">
+          <div v-html="MarkdownContentToHtml(tag.fields.PublicDescriptionLong)"></div>
+          <h2>Related Entries</h2>
+          <ul>
+            <li v-for="entry in LookupRelatedItems(tag, 'Entries')">
+              <a class="simpleEntryListItem" v-bind:href="entry | MakeTemplateLink('Entry')">
+                <span>{{entry.fields.Title}}</span>
+                <span>{{entry.fields.Excerpt}}</span class="text-muted">
+              </a>
+            </li>
+          </ul>
+          <h2>Member Commentary</h2>
+          <p></p>
+          <h2>Related Questions</h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
   </div>
   `,
   props: ["tag"],
-  mixins: [AirBlogBase],
-  methods: {
-  }
+  mixins: [AirBlogBase]
 };
+
 
 var QuestionDetailComponent = {
   template: `
-  <div class="ComponentListWrapper">
-    <main role="main" class="">
-    <h1>{{question.fields.Name}}</h1>
-    <div style="margin-top: 4rem;" v-html="GetFormattedLongDescription(question)"></div>
-    <h2>Related Articles</h2>
-    <ul>
-      <li v-for="question in LookupRelatedItems(question, 'Questions')">
-        <a class="simpleEntryListItem" v-bind:href="question | MakeTemplateLink('Entry')">
-          <span>{{question.fields.Title}}</span>
-          <span>{{question.fields.Excerpt}}</span class="text-muted">
-        </a>
-      </li>
-    </ul>
-    <h2>Member Commentary</h2>
-    <p></p>
-    <h2>Related Questions</h2>
-    <p></p>
-    </main>
+  <div class="atQuestionDetailComponent">
+    <div class="longTextWrapper">
+      <div class="itemDetailHeader">
+        <div class="itemDetailHeaderContent">
+          <h1>{{question.fields.Name}}</h1>
+          <div class="itemShortDescription" v-html="MarkdownContentToHtmlRemoveLinks(question.fields.PublicDescriptionShort)">moo</div>
+        </div>
+      </div>
+      <div class="itemDetailContentOuter">
+        <div class="itemDetailContentInner">
+          <div v-html="MarkdownContentToHtml(question.fields.PublicDescriptionLong)"></div>
+          <h2>Related Entries</h2>
+          <ul>
+            <li v-for="entry in LookupRelatedItems(question, 'Entries')">
+              <a class="simpleEntryListItem" v-bind:href="entry | MakeTemplateLink('Entry')">
+                <span>{{entry.fields.Title}}</span>
+                <span>{{entry.fields.Excerpt}}</span class="text-muted">
+              </a>
+            </li>
+          </ul>
+          <h2>Member Commentary</h2>
+          <p></p>
+          <h2>Related Questions</h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
   </div>
   `,
   props: ["question"],
@@ -369,28 +409,30 @@ var QuestionDetailComponent = {
 
 var EntryExploreFooter ={
   template: `
+<div class="atEntryExploreFooter">
   <footer class="footer">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
-    <div class="container">
-      <a class="nav navbar-left bg-dark text-light dropup-toggle" type="button" data-toggle="collapse" data-target="#togglerExplore" aria-controls="togglerExplore" aria-expanded="false" aria-label="Explore">
-        <span>Explore</span>
-      </a>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
+      <div class="container">
+        <a class="nav navbar-left bg-dark text-light dropup-toggle" type="button" data-toggle="collapse" data-target="#togglerExplore" aria-controls="togglerExplore" aria-expanded="false" aria-label="Explore">
+          <span>Explore</span>
+        </a>
 
-      <div class="nav navbar-dark bg-dark collapse" id="togglerExplore">
-        <ul class="dropup nav bg-dark">
-          <li v-for="question in LookupRelatedItems(entry,'Questions')" class="dropup-item">
-            <a class="nav-link dropup-item bg-dark" v-bind:title="question.fields.PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(question,'Question')">{{ question.fields.Name }}</a>
-          </li>
-          <li v-for="tag in LookupRelatedItems(entry,'Tags')" class="dropup-item">
-            <a class="nav-link dropup-item bg-dark" v-bind:title="tag.fields.PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(tag,'Tag')">{{ tag.fields.Name }}</a>
-          </li>
-        </ul>
+        <div class="nav navbar-dark bg-dark collapse" id="togglerExplore">
+          <ul class="dropup nav bg-dark">
+            <li v-for="question in LookupRelatedItems(entry,'Questions')" class="dropup-item">
+              <a class="nav-link dropup-item bg-dark" v-bind:title="question.fields.PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(question,'Question')">{{ question.fields.Name }}</a>
+            </li>
+            <li v-for="tag in LookupRelatedItems(entry,'Tags')" class="dropup-item">
+              <a class="nav-link dropup-item bg-dark" v-bind:title="tag.fields.PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(tag,'Tag')">{{ tag.fields.Name }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <a class="nav navbar-brand navbar-right bg-dark navbar-dark" >&copy; 2019</a>
       </div>
-
-      <a class="nav navbar-brand navbar-right bg-dark navbar-dark" >&copy; 2019</a>
-    </div>
-  </nav>
-</footer>
+    </nav>
+  </footer>
+</div>
 `,
 props: ["entry"],
 mixins: [AirBlogBase]
@@ -398,6 +440,7 @@ mixins: [AirBlogBase]
 
 var PlainFooter = {
   template: `
+  <div class="atPlainFooter">
   <nav class="navbar navbar-expand-md navbar-dark fixed-bottom bg-dark">
     <a class="nav navbar-brand navbar-left navbar-dark bg-dark">&copy; 2019</a>
     <a
@@ -407,6 +450,7 @@ var PlainFooter = {
       >{{ blog.fields.Subtitle }}</a
     >
 </nav>
+</div>
 
   `,
   props: ["blog"],
@@ -415,26 +459,30 @@ var PlainFooter = {
 
 var NavMenuSubList = {
   template: `
-  <div class="bg-dark navbar-dark">
-    <a class="nav-item navbar-toggler bg-dark navbar-dark"
-    data-toggle="collapse"
-    v-bind:data-target="'#togglerMenu'+tablename"
-    v-bind:aria-controls="'togglerMain'+tablename"
-    aria-expanded="false"
-    v-bind:aria-label="tablename+' Nav'">
-      {{entityname}}
-    </a>
-    <div class="dropdown-menu bg-dark navbar-dark"
-    v-bind:aria-labelledby="tablename+'DropDown'"
-    v-bind:id="'togglerMenu'+tablename">
-        <a class="dropdown-item nav-link  bg-dark navbar-dark"
-        v-for="rec in itemlist"
-        v-bind:atEntityName="entityname"
-        v-bind:atTableName="tablename"
-        v-bind:atEntityId="rec.id"
-        v-bind:href="MakeEntityIntoALink(rec,entityname)">{{ rec.fields.Name }}</a>
+  <div class="atNavMenuSubList">
+    <div class="bg-dark navbar-dark">
+      <a class="nav-item navbar-toggler bg-dark navbar-dark"
+      data-toggle="collapse"
+      v-bind:data-target="'#togglerMenu'+tablename"
+      v-bind:aria-controls="'togglerMain'+tablename"
+      aria-expanded="false"
+      v-bind:aria-label="tablename+' Nav'">
+        {{entityname}}
+      </a>
+      <div class="dropdown-menu bg-dark navbar-dark"
+          v-bind:aria-labelledby="tablename+'DropDown'"
+          v-bind:id="'togglerMenu'+tablename">
+          <a class="dropdown-item nav-link  bg-dark navbar-dark"
+            v-for="rec in itemlist"
+            v-bind:atEntityName="entityname"
+            v-bind:atTableName="tablename"
+            v-bind:atEntityId="rec.id"
+            v-bind:href="MakeEntityIntoALink(rec,entityname)">
+          {{ rec.fields.Name }}
+          </a>
+      </div>
     </div>
-  </div>
+    </div>
   `,
   props: ["itemlist", "entityname","tablename"],
   mixins: [AirBlogBase]
@@ -443,35 +491,45 @@ var NavMenuSubList = {
 var ModalAboutTheBlog = {
   template: `
 
+  <div class="atModalAboutTheBlog">
+  <div
+  class="modal"
+  id="modalAbout"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalAbout"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalAboutTitle">
-          {{ atmyblog.fields.Title }}
-        </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" v-html="MarkdownContentToHtml(atmyblog.fields.LongFormDescription)"></div>
-      <div class="modal-footer">
-        <a class="btn btn-success" :href="'mailto:'+atmyblog.fields.ContactEmail">
-          <i class="fa fa-comment pull-left"></i> Contact Site Owner</a
-        >
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >
-          Close
-        </button>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAboutTitle">
+            {{ atmyblog.fields.Title }}
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" v-html="MarkdownContentToHtml(atmyblog.fields.LongFormDescription)"></div>
+        <div class="modal-footer">
+          <a class="btn btn-success" :href="'mailto:'+atmyblog.fields.ContactEmail">
+            <i class="fa fa-comment pull-left"></i> Contact Site Owner</a
+          >
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
+  </div>
   </div>
 
   `,
@@ -486,67 +544,139 @@ var ModalAboutTheBlog = {
 }
 var ModalReadArticle = {
   template: `
-  
-  <div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="modalArticleTitle">
-        {{ atmyentry.fields.Title }}
-      </h5>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div id="entryBriefApp">
-        <entry-detailbrief-component
-          :entry="atmyentry"
-        ></entry-detailbrief-component>
+
+  <div class="atModalReadArticle">
+    <div
+      class="modal"
+      id="modalArticle"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modalArticle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalArticleTitle">
+              {{ atmyentry.fields.Title }}
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="entryBriefApp">
+              <entry-detail-brief-component
+                :entry="atmyentry"
+              ></entry-detail-brief-component>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-success"
+              :href="'mailto:'+atmyblog.fields.ContactEmail">
+              <i class="fa fa-comment pull-left"></i>
+              Contact Site Owner
+            </a>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <a class="btn btn-success"
-        :href="'mailto:'+atmyblog.fields.ContactEmail">
-        <i class="fa fa-comment pull-left"></i>
-         Contact Site Owner
-      </a>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        data-dismiss="modal"
-      >
-        Close
-      </button>
-    </div>
   </div>
-</div>
 
   `,
   props: ["atmyblog", "atmyentry"],
   mixins: [AirBlogBase],
   components: {
-    EntryDetailbriefComponent
+    EntryDetailBriefComponent
   },
   mounted: function() {
-    $(document).on("shown.bs.modal", "#modalArticle", function(event) {
-      var triggerElement = $(event.relatedTarget); // Button that triggered
-      var elementId = triggerElement[0].getAttribute("href");
-      document.AirBlog.SelectMyEntryById(elementId);
-      $(".modal-backdrop").addClass("modalBackdropTweak");
-    });
+      $(document).on("shown.bs.modal", "#modalArticle", function(event) {
+        var triggerElement = $(event.relatedTarget); // Button that triggered
+        var elementId = triggerElement[0].getAttribute("href");
+        document.AirBlog.SelectMyEntryById(elementId);
+        $(".modal-backdrop").addClass("modalBackdropTweak");
+      });
+    }
   }
 
+var BlogNavigationHeaderMenu = {
+  template: `
+<div class="atBlogNavigationHeaderMenu">
+  <header class="header">
+    <nav class="navbar navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="index.html" v-cloak>
+        {{atmyblog.fields.Title}}
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#togglerMain"
+        aria-controls="togglerMain"
+        aria-expanded="false"
+        aria-label="Main Nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="togglerMain">
+        <div class="navbar-dark bg-dark navbar-brand">Filter</div>
+        <ul class="navbar-nav">
+          <li class="nav-item ml-auto">
+            <nav-menu-sub-list
+              :itemlist="atcategories.records"
+              entityname="Category"
+              tablename="Categories"
+            ></nav-menu-sub-list>
+          </li>
+          <li class="nav-item ml-auto">
+            <nav-menu-sub-list
+              :itemlist="attags.records"
+              entityname="Tag"
+              tablename="Tags">
+            </nav-menu-sub-list>
+          </li>
+          <li class="nav-item ml-auto">
+            <nav-menu-sub-list
+              :itemlist="atquestions.records"
+              entityname="Question"
+              tablename="Questions"
+            ></nav-menu-sub-list>
+          </li>
+          <li class="nav-item bg-dark navbar-dark text-light ml-auto">
+            <a
+              class="nav-item helpabout bg-dark navbar-dark"
+              href="#"
+              data-toggle="modal"
+              data-target="#modalAbout"
+              >About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+</div>
+  `,
+  props: ["atmyblog", "attags", "atquestions", "atcategories"],
+  mixins: [AirBlogBase],
+  components: {
+    NavMenuSubList
+  }
 }
+
+
 export {
   AirBlogBase,
   EntryListComponent,
-  EntryDetailbriefComponent,
-  EntryDetailfullComponent,
+  EntryDetailBriefComponent,
+  EntryDetailFullComponent,
   TagDetailComponent,
   QuestionDetailComponent,
   EntryListPlainComponent,
@@ -554,5 +684,6 @@ export {
   PlainFooter,
   NavMenuSubList,
   ModalAboutTheBlog,
-  ModalReadArticle
+  ModalReadArticle,
+  BlogNavigationHeaderMenu
 };

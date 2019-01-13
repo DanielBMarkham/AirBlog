@@ -1,7 +1,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="description" content="" />
     <meta name="author" content="Daniel B. Markham" />
     <meta property="twitter:account_id" content="55648990" />
@@ -26,22 +29,28 @@
   <body class="vueComponent">
     <div class="container" id="mainApp">
       <div id="holder">
-
         <div class="vueComponent">
-          <blog-navigation-header-menu :atmyblog="atMyBlog" :attags="atTags" :atquestions="atQuestions" :atcategories="atCategories" ></blog-navigation-header-menu>
+          <blog-navigation-header-menu
+            :atmyblog="atMyBlog"
+            attags="atTags"
+            atquestions="atQuestions"
+            :atcategories="atCategories"
+          ></blog-navigation-header-menu>
         </div>
 
         <main class="main">
           <div class="vueComponent">
-            <entry-list-plain-component
+            <entry-list-component
               :entries="atEntries.records"
-            ></entry-list-plain-component>
+            ></entry-list-component>
           </div>
         </main>
 
-        <div class="vueComponent">
-          <plain-footer :blog="atMyBlog"></plain-footer>
-        </div>
+        <footer class="footer">
+          <div class="vueComponent">
+            <plain-footer :blog="atMyBlog"></plain-footer>
+          </div>
+        </footer>
 
         <!-- Modal About the blog -->
         <div class="vueComponent" v-cloak>
@@ -50,9 +59,11 @@
 
         <!-- Modal Read Article -->
         <div class="=vueComponent">
-          <modal-read-article :atmyBlog="atMyBlog" :atmyentry="atMyEntry"></modal-read-article>
+          <modal-read-article
+            :atmyBlog="atMyBlog"
+            :atmyentry="atMyEntry"
+          ></modal-read-article>
         </div>
-
       </div>
     </div>
     <!-- container !-->

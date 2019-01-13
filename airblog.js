@@ -1,8 +1,8 @@
 import {
   AirBlogBase,
   EntryListComponent,
-  EntryDetailbriefComponent,
-  EntryDetailfullComponent,
+  EntryDetailBriefComponent,
+  EntryDetailFullComponent,
   TagDetailComponent,
   QuestionDetailComponent,
   EntryListPlainComponent,
@@ -10,7 +10,8 @@ import {
   PlainFooter,
   NavMenuSubList,
   ModalAboutTheBlog,
-  ModalReadArticle
+  ModalReadArticle,
+  BlogNavigationHeaderMenu
 } from "/components.js";
 Vue.prototype.$md = window.markdownit({
   html: true, // Enable HTML tags in source
@@ -311,7 +312,7 @@ function AB(callback) {
   };
   this.RelatedItemsByTheirFieldNameDelimited=function(item, relatedItemsFieldName, fieldToUse, delimiterBegin, delimiterEnd){
     var itemsToUse=this.RelatedItems(item, relatedItemsFieldName);
-    if (itemsToUse!=undefined && itemsToUse.length!=undefined && fieldToUse!=undefined  && itemsToUse[0].fields[fieldToUse]!=undefined) {
+    if (itemsToUse!=undefined && itemsToUse.length!=undefined && itemsToUse.length!=0 && fieldToUse!=undefined && itemsToUse[0].fields!=undefined && itemsToUse[0].fields[fieldToUse]!=undefined) {
       var flds= itemsToUse.map(item => {
         return delimiterBegin+item.fields[fieldToUse]+delimiterEnd;});
       return flds.join();
@@ -358,8 +359,8 @@ function begin(airBlog) {
     mixins: [AirBlogBase],
     components: {
       EntryListComponent,
-      EntryDetailbriefComponent,
-      EntryDetailfullComponent,
+      EntryDetailBriefComponent,
+      EntryDetailFullComponent,
       TagDetailComponent,
       QuestionDetailComponent,
       EntryListPlainComponent,
@@ -367,7 +368,8 @@ function begin(airBlog) {
       PlainFooter,
       NavMenuSubList,
       ModalAboutTheBlog,
-      ModalReadArticle
+      ModalReadArticle,
+      BlogNavigationHeaderMenu
     },
     computed: {
       menuItemToLink(rec, itemType) {
