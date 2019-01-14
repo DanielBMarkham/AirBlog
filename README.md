@@ -9,6 +9,7 @@ You can see it running on the [Tiny Giant Books website](http://tiny-giant-books
 - **All serverless**. It uses AirTable for a database, plugging into their rich ecosystem for whatever data-type customizations a future user/dev might want. The Javascript engine will pull data either directly from AirTable (not recommended, and not serverless) or from local json files. A very simple shell script updates the local json files regularly. Copy a few files on a thumbdrive or to a cloudshare? You've got the entire operational blog
 - **Lightweight**. The actual data part of the web we use everyday is quite small. Much of what we consume in terms of bandwidth is UI crap. 100 blogging entries might run 30k
 - **Data access fully separate from UI**. It's in its own JS class. This means if you don't like my selection of web technologies you can use your own. :)
+- **Markdown for user-entered content**. Users wanting to add entries just type them in using plain text. If they know markdown, they can use that. There's no "front-end" for entering content. As long as you can copy and paste a hunk of text to a web page, you're blogging. If you know markdown, you're blogging with a huge amount of formatting capabilities.
 - **Pluggable/Skinnable using Vue.js**. I made the choice to use Vue.js because I was convinced it had a better system for growing out components. So far I haven't see anything to disprove that notion, but it's still a very young system
 - **Web layout using Bootstrap**. Most people should know Bootstrap. It makes for a nice default component system when paired with Vue. If you're careful not to override the classes too much, you should be able to buy various Bootstrap themes and widgets and drop them in directly for extra coolness with very little coding
 - **Organization system by question, not entry**. Just to do something new, I decided to set up the database so that entries are grouped by question in addition to author, date, tag, etc. I believe this should allow for greater UI end customization. (For instance, when I add commenting, I'll probably add it to the questions, not the blog entries, but you could do this any way you'd like)
@@ -22,11 +23,11 @@ You can see it running on the [Tiny Giant Books website](http://tiny-giant-books
 
 ## Code Budget
 
-|Item|LOC|
-|--------|
-|Library JS|400|
-|Library CSS|500|
-|Components (14)|700|
+| Item | LOC |
+| ---- | ---- |
+| Library JS | 400 |
+| Library CSS | 500 |
+| Components (14) | 700 |
 
 Looks like for new components there's a minimum of 10 lOC. Based on the components written so far, you should easily be able to add new components for 50-200 LOC -- that's html, js, and css. If not, then the underlying library needs updating.
 
