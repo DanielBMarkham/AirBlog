@@ -77,22 +77,7 @@ div#tgbArticleListOuter {
 #mainContainer {
   padding: 60px 15px 0;
 }
-.entryImgInlineLeft {
-  width: 25%;
-  margin-right: 1em;
-}
-.entryImgInlineRight {
-  width: 25%;
-  margin-left: 1em;
-}
-.blogSignature {
-  max-height: 7em;
-}
-.imgCenter {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
+
 .modalBackdropTweak {
   z-index: -1;
 }
@@ -118,111 +103,6 @@ div#tgbArticleListOuter {
   width: 100%;
   overflow: hidden;
   margin: 0;
-}
-.articleList {
-  list-style: none;
-  z-index: 0;
-  position: fixed;
-  margin: 0;
-  margin-right: 120px;
-  min-height: 100%;
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
-  min-width: 100%;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-.articleList:last-child {
-  padding-bottom: 240px;
-}
-
-.articleItemOuter {
-  margin-bottom: 3rem;
-  overflow: hidden;
-  margin-right: 30px;
-  border-top-right-radius: 1.5rem;
-  border-bottom-left-radius: 1.5rem;
-  max-width: 600px;
-}
-.articleItemInner {
-  margin: -1.25rem;
-}
-
-.card-title {
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding-left: 3.5rem;
-  padding-right: 3.5rem;
-  min-height: 2rem;
-}
-.card-subtitle {
-  margin-top: -0.375rem;
-  margin-bottom: 0;
-  text-align: justify;
-  font-style: italic;
-  font-weight: lighter;
-
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-.card-text {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-.entryListBottomLinkRow {
-  min-width: 100%;
-  width: 100%;
-  overflow-y: hidden;
-  overflow-x: overlay;
-  background-color: gray;
-  height: 2em;
-  text-align: center;
-}
-.entryListBottomLinkBox:firstchild {
-  margin-left: 15px;
-  font-weight: bold;
-}
-.entryListBottomLinkBox:lastchild {
-  margin-right: 15px;
-  font-weight: bold;
-}
-.entryListBottomLinkBox {
-  overflow: hidden;
-  display: inline-grid;
-  width: 20%;
-  min-width: 20%;
-  margin-right: 1%;
-  margin-left: 1%;
-}
-.card-source-link {
-  text-align: center;
-}
-.card-other-link {
-  text-align: center;
-}
-.card-bottomLeftLink {
-  text-align: left;
-}
-.card-bottomRightLink {
-  text-align: right;
-}
-
-.btn-votedown {
-  top: 0;
-  left: 0;
-  width: 3.5rem;
-  display: table-cell;
-  position: absolute;
-}
-.btn-voteup {
-  top: 0;
-  right: 0;
-  width: 3.5rem;
-  display: table-cell;
-  position: absolute;
 }
 
 
@@ -316,15 +196,25 @@ ENTRY DETAIL FULL COMPONENT
 /**
 EntryListPlainComponent - barebones html list - what's needed?
 **/
-div.atEntryListPlainComponent>div.longTextWrapper{
+div.atEntryListPlainComponent {
+  text-align: center;
+  max-width: 60rem;
+  margin: auto;
   height: 100%;
+  overflow-y: hidden;
+}
+div.atEntryListPlainComponent>div.longTextWrapper{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 100%;
+  text-align: initial;
 }
 div.atEntryListPlainComponent>div.longTextWrapper ul {
   list-style: none;
   overflow-y: auto;
   height: 100%;
   padding-left: 2rem;
-  margin-left: -1rem;
+  margin-left: -2rem;
   margin-right: -2rem;
   padding-right: 2rem;
   padding-bottom: 4rem;
@@ -335,6 +225,152 @@ div.atEntryListPlainComponent>div.longTextWrapper .tagBar{
 div.atEntryListPlainComponent>div.longTextWrapper .tagLink{
   padding:0;
   white-space: normal;
+}
+
+
+
+
+
+/** Full, 'candy bar' EntryList Component
+**/
+
+div.atEntryListComponent div.articleList {
+  list-style: none;
+  z-index: 0;
+  position: fixed;
+  margin: 0;
+  margin-right: 120px;
+  min-height: 100%;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  min-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+div.atEntryListComponent div.articleList:last-child {
+  padding-bottom: 240px;
+}
+div.atEntryListComponent div.articleList div.articleItemOuter {
+  margin-bottom: 3rem;
+  overflow: hidden;
+  margin-right: 30px;
+  border-top-right-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+  max-width: 600px;
+}
+div.atEntryListComponent div.articleList div.articleItemInner {
+  margin: -1.25rem;
+}
+
+
+div.atEntryListComponent div.articleList .card-title {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+  min-height: 2rem;
+}
+div.atEntryListComponent div.articleList div.card-subtitle {
+  margin-top: -0.375rem;
+  margin-bottom: 0;
+  text-align: justify;
+  font-style: italic;
+  font-weight: lighter;
+
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+div.atEntryListComponent div.articleList div.card-text {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+div.atEntryListComponent div.articleList ul.tagCloud {
+  height: 9vh;
+  text-align: center;
+  overflow-y: hidden;
+  padding-left: 0;
+  margin-left: 0;
+  list-style: none;
+  overflow-x: hidden;
+  width: 100%;  
+}
+
+div.atEntryListComponent div.articleList ul.tagCloud li {
+  list-style: none;
+  display: inline;
+}
+div.atEntryListComponent div.articleList ul.tagCloud li:after {
+  content: " \00b7";
+  font-weight: bold;
+  position: relative;
+  padding-right: .25rem;
+}
+div.atEntryListComponent div.articleList ul.tagCloud li:last-child::after {
+  content: none;
+  padding-right: 0;
+  font-size: normal;
+  font-weight: normal;
+  position: initial;
+}
+div.atEntryListComponent div.articleList ul.tagCloud li>a {
+  white-space: nowrap;
+}
+
+
+div.atEntryListComponent div.articleList div.card-body .entryListBottomLinkRow {
+  min-width: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: overlay;
+  background-color: gray;
+  height: 2em;
+  text-align: center;
+}
+div.atEntryListComponent div.articleList div.card-body .entryListBottomLinkRow .entryListBottomLinkBox:firstchild {
+  margin-left: 15px;
+  font-weight: bold;
+}
+div.atEntryListComponent div.articleList div.card-body .entryListBottomLinkRow .entryListBottomLinkBox:lastchild {
+  margin-right: 15px;
+  font-weight: bold;
+}
+div.atEntryListComponent div.articleList div.card-body .entryListBottomLinkRow .entryListBottomLinkBox {
+  overflow: hidden;
+  display: inline-grid;
+  width: 20%;
+  min-width: 20%;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+div.atEntryListComponent div.articleList div.card-body .entryListBottomLinkRow .card-source-link {
+  text-align: center;
+}
+div.atEntryListComponent div.articleList div.card-body .entryListBottomLinkRow .card-other-link {
+  text-align: center;
+}
+div.atEntryListComponent div.articleList div.card-body .entryListBottomLinkRow .card-bottomLeftLink {
+  text-align: left;
+}
+div.atEntryListComponent div.articleList div.card-body.entryListBottomLinkRow .card-bottomRightLink {
+  text-align: right;
+}
+
+div.atEntryListComponent div.articleList div.card-body .btn-votedown {
+  top: 0;
+  left: 0;
+  width: 3.5rem;
+  display: table-cell;
+  position: absolute;
+}
+div.atEntryListComponent div.articleList div.card-body .btn-voteup {
+  top: 0;
+  right: 0;
+  width: 3.5rem;
+  display: table-cell;
+  position: absolute;
 }
 
 
@@ -407,3 +443,34 @@ div.atEntryListPlainComponent>div.longTextWrapper .tagLink{
   display: block;
   padding: 2%;
 }
+
+
+/** This is the REAL stuff that goes here, stuff for each installation
+    The stuff we have so far is just for dev
+**/
+
+.entryImgInlineLeft {
+  width: 25%;
+  margin-right: 1em;
+}
+.entryImgInlineRight {
+  width: 25%;
+  margin-left: 1em;
+}
+.blogSignature {
+  max-height: 7em;
+}
+.imgCenter {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+div.atEntryListPlainComponent div[atentity='question'] {
+  height: 3rem;
+  overflow-y: hidden;
+}
+div.atEntryListPlainComponent div[atentity='tag'] {
+
+} 

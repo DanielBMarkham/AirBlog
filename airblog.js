@@ -1,5 +1,6 @@
 import {
   AirBlogBase,
+  RelatedItemsBar,
   EntryListComponent,
   EntryDetailBriefComponent,
   EntryDetailFullComponent,
@@ -76,7 +77,7 @@ function AB(callback) {
   const RUN_MODE = "LOCAL"; // other option is LIVE
   const API_KEY = ""; // need this for LIVE
   const APP_ID = "appQTNunJetOT3r1B";
-  const BLOGID = "recCGKQBlTWHqrGCu";
+  const BLOGID = "recoTAnEkpSChFj9g";
   const BLOGNAME = "n23";
   const PAGE_SIZE = "99"; // 99 is max. After that you gotta add paging code
   var atEntries = {};
@@ -358,6 +359,7 @@ function begin(airBlog) {
     data: airBlog,
     mixins: [AirBlogBase],
     components: {
+      RelatedItemsBar,
       EntryListComponent,
       EntryDetailBriefComponent,
       EntryDetailFullComponent,

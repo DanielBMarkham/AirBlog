@@ -162,9 +162,9 @@ var EntryListComponent = {
               {{ rec.fields.Title }}
                 <a href="#" class="btn btn-sm btn-success card-filingButton btn-voteup">Up</a>
             </h5>
-            <div v-html='FieldListIntoListOfLinksToTemplates(rec, "Questions", "Question", "EntryListQuestions", "", "btn btn-sm btn-info")'></div>
             <ul class='tagCloud'>
-              <li v-for="tag in LookupRelatedItems(rec, 'Tags')"><a v-bind:href="MakeEntityIntoALink(tag,'Tag')" v-html="tag.fields.Name"></a></li>
+              <li atentity='tag' v-for="tag in LookupRelatedItems(rec, 'Tags')"><a :title="tag.fields.PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(tag,'Tag')" v-html="tag.fields.Name"></a></li>
+              <li atentity='question' v-for="question in LookupRelatedItems(rec, 'Questions')"><a :title="question.fields.PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(question,'Question')" v-html="question.fields.Name"></a></li>
             </ul>
             <p class="card-text text-muted">{{ rec.fields.Excerpt }}</p>
             <div class="entryListBottomLinkRow">
@@ -232,7 +232,13 @@ var EntryListComponent = {
     }
   }
 };
-
+// TODO: finish this up and put somewhere
+var RelatedItemsBar = {
+  template: `
+  `,
+  props: ["entries"],
+  mixins: [AirBlogBase]
+}
 var EntryListPlainComponent = {
   template : `
   <div class="atEntryListPlainComponent">
@@ -256,10 +262,10 @@ var EntryListPlainComponent = {
                 </span>
             </p>
             <div class="navbar navbar-collapse justify-content-between tagBar">
-              <div class="navbar-nav mr-auto"  v-for="tag in LookupRelatedItems(entry, 'Tags')">
+              <div class="navbar-nav mr-auto" atentity='tag' v-for="tag in LookupRelatedItems(entry, 'Tags')">
                 <a class="nav-item nav-link btn text-dark tagLink" v-bind:href="MakeEntityIntoALink(tag, 'Tag')" :title="tag.fields.PublicDescriptionShort" v-html="tag.fields.Name"></a>
               </div>
-              <div class="navbar-nav mr-auto"  v-for="question in LookupRelatedItems(entry, 'Questions')">
+              <div class="navbar-nav mr-auto" atentity='question'  v-for="question in LookupRelatedItems(entry, 'Questions')">
                 <a class="nav-item nav-link btn text-dark tagLink" v-bind:href="MakeEntityIntoALink(question, 'Question')" :title="question.fields.PublicDescriptionShort" v-html="question.fields.Name"></a>
               </div>
             </div>
@@ -300,7 +306,7 @@ var EntryDetailFullComponent = {
     <div class="entryDetailHeader">
       <h1>{{entry.fields.Title}}</h1>
       <ul class='tagCloud'>
-        <li v-for="tag in LookupRelatedItems(entry, 'Tags')"><a v-bind:href="MakeEntityIntoALink(tag, 'Tag')" v-html="tag.fields.Name"></a></li>
+        <li atentity="tag" v-for="tag in LookupRelatedItems(entry, 'Tags')"><a v-bind:href="MakeEntityIntoALink(tag, 'Tag')" v-html="tag.fields.Name"></a></li>
       </ul>
       <p class="text-muted byline">
         By
@@ -629,28 +635,28 @@ var BlogNavigationHeaderMenu = {
       <div class="collapse navbar-collapse" id="togglerMain">
         <div class="navbar-dark bg-dark navbar-brand">Filter</div>
         <ul class="navbar-nav">
-          <li class="nav-item ml-auto">
+          <li class="navbar-nav navbar-dark bg-dark text-light">
             <nav-menu-sub-list
               :itemlist="atcategories.records"
               entityname="Category"
               tablename="Categories"
             ></nav-menu-sub-list>
           </li>
-          <li class="nav-item ml-auto">
+          <li class="navbar-nav navbar-dark bg-dark text-light">
             <nav-menu-sub-list
               :itemlist="attags.records"
               entityname="Tag"
               tablename="Tags">
             </nav-menu-sub-list>
           </li>
-          <li class="nav-item ml-auto">
+          <li class="navbar-nav navbar-dark bg-dark text-light">
             <nav-menu-sub-list
               :itemlist="atquestions.records"
               entityname="Question"
               tablename="Questions"
             ></nav-menu-sub-list>
           </li>
-          <li class="nav-item bg-dark navbar-dark text-light ml-auto">
+          <li class="navbar-nav navbar-dark bg-dark text-light">
             <a
               class="nav-item helpabout bg-dark navbar-dark"
               href="#"
@@ -674,6 +680,7 @@ var BlogNavigationHeaderMenu = {
 
 export {
   AirBlogBase,
+  RelatedItemsBar,
   EntryListComponent,
   EntryDetailBriefComponent,
   EntryDetailFullComponent,
