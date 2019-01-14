@@ -38,4 +38,4 @@ This follows the [2000-200-20 code budget I'm currently using for my side projec
 
 ## Notes
 
-As you can see, most of what's on my to-do list is UI bike-shedding, so this was a good place to stop for a bit. Contact me if you're trying it on your own and would like any help or have feedback! I'd be interested in how it works for you.
+As you can see, most of what's on my to-do list is either UI bike-shedding or stuff required for full-product roll-out, so this was a good place to stop for a bit. Contact me if you're trying it on your own and would like any help or have feedback! I'd be interested in how it works for you.
