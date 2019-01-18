@@ -1,22 +1,7 @@
-<html lang="en">
+﻿<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="Daniel B. Markham" />
-    <meta property="twitter:account_id" content="55648990" />
-    <meta property="og:title" content="Newspaper23" />
-    <meta property="og:description" content="Content Redux" />
-    <meta property="og:image" content="" />
-    <meta property="og:url" content="" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta property="og:site_name" content="Newspaper23" />
-    <meta name="twitter:image:alt" content="Alt text for image" />
-    <meta property="fb:app_id" content="your_app_id" />
-    <meta name="twitter:site" content="@danielbmarkham" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>Home Page</title>
     <link rel="stylesheet" href="css/fa-svg-with-js.css" />
     <link rel="stylesheet" href="library.css" />
@@ -27,45 +12,39 @@
     <script src="main.js"></script>
   </head>
   <body class="vueComponent">
-    <div class="container" id="mainApp">
-      <div id="holder">
-        <div class="vueComponent">
-          <blog-navigation-header-menu
-            :atmyblog="atMyBlog"
-            attags="atTags"
-            atquestions="atQuestions"
-            :atcategories="atCategories"
-          ></blog-navigation-header-menu>
-        </div>
+      <div class="container" id="mainApp">
+          <div id="holder">
+              <div class="vueComponent">
+                  <blog-navigation-header-menu :atmyblog="atMyBlog"
+                                               attags="atTags"
+                                               atquestions="atQuestions"
+                                               :atcategories="atCategories">
 
-        <main class="main">
-          <div class="vueComponent">
-            <entry-list-plain-component
-              :entries="atEntries.records"
-            ></entry-list-plain-component>
-          </div>
-        </main>
+                  </blog-navigation-header-menu>
+              </div>
+              <!-- Fairly simple list of blog entries -->
+              <main class="main">
+                  <div class="vueComponent">
+                      <entry-list-plain-component :entries="atEntries.records"></entry-list-plain-component>
+                  </div>
+              </main>
 
-        <footer class="footer">
-          <div class="vueComponent">
-            <plain-footer :blog="atMyBlog"></plain-footer>
-          </div>
-        </footer>
+              <!-- Standard branded footer -->
+              <div class="vueComponent">
+                  <plain-footer :blog="atMyBlog"></plain-footer>
+              </div>
 
-        <!-- Modal About the blog -->
-        <div class="vueComponent" v-cloak>
-          <modal-about-the-blog :atmyblog="atMyBlog"></modal-about-the-blog>
-        </div>
+              <!-- Modal About the blog -->
+              <div class="vueComponent" v-cloak>
+                  <modal-about-the-blog :atmyblog="atMyBlog"></modal-about-the-blog>
+              </div>
 
-        <!-- Modal Read Article -->
-        <div class="=vueComponent">
-          <modal-read-article
-            :atmyBlog="atMyBlog"
-            :atmyentry="atMyEntry"
-          ></modal-read-article>
-        </div>
-      </div>
-    </div>
-    <!-- container !-->
+              <!-- Modal Read Article -->
+              <div class="=vueComponent">
+                  <modal-read-article :atmyBlog="atMyBlog"
+                                      :atmyentry="atMyEntry"></modal-read-article>
+              </div>
+          </div> <!-- main Vue app !-->
+      </div> <!-- container !-->
   </body>
 </html>

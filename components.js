@@ -145,6 +145,50 @@ var AirBlogBase = Vue.extend({
   }
 });
 
+var RelatedItemsBar = {
+  template: `
+  <div class="atRelatedItemsBar">
+    <ul class='relatedItems'>
+      <li atentity='tag' v-for="tag in LookupRelatedItems(entry, 'Tags')" :atentityid="tag.id">
+        <a :title="tag.fields.PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(tag,'Tag')" v-html="tag.fields.Name">
+      </a></li>
+      <li atentity='question' v-for="question in LookupRelatedItems(entry, 'Questions')"  :atentityid="question.id">
+        <a :title="question.fields.PublicDescriptionShort" v-bind:href="MakeEntityIntoALink(question,'Question')" v-html="question.fields.Name">
+      </a></li>
+    </ul> <!--relatedItems !-->
+  </div> <!--atRelatedItemsBar !-->
+  `,
+  props: ["entry"],
+  mixins: [AirBlogBase]
+}
+var EntryDetailHeader = {
+  template: `
+  <div class="atEntryDetailHeader">
+    <h1>{{entry.fields.Title}}</h1>
+    <div class="vueComponent">
+      <related-items-bar :entry="entry"></related-items-bar>
+    </div> <!--vueComponent !-->
+    <p class="text-muted byline">
+      By
+        <span v-for="author in LookupRelatedItems(entry, 'Authors')">
+          {{author.fields.Name}} &nbsp;
+        </span>
+      on
+        <span>
+          {{entry.createdTime | DatePretty}}
+        </span>
+    </p>
+  </div> <!--atEntryDetailHeader !-->
+  `,
+  props: ["entry"],
+  mixins: [AirBlogBase],
+  components: {
+    RelatedItemsBar
+  }
+}
+
+
+
 var EntryListComponent = {
   template: `
   <div class="atEntryListComponent ComponentListWrapper">
@@ -232,13 +276,6 @@ var EntryListComponent = {
     }
   }
 };
-// TODO: finish this up and put somewhere
-var RelatedItemsBar = {
-  template: `
-  `,
-  props: ["entries"],
-  mixins: [AirBlogBase]
-}
 var EntryListPlainComponent = {
   template : `
   <div class="atEntryListPlainComponent">
@@ -302,31 +339,21 @@ var EntryDetailBriefComponent = {
 
 var EntryDetailFullComponent = {
   template: `
-  <div class="atEntryDetailFullComponent longTextWrapper">
-    <div class="entryDetailHeader">
-      <h1>{{entry.fields.Title}}</h1>
-      <ul class='tagCloud'>
-        <li atentity="tag" v-for="tag in LookupRelatedItems(entry, 'Tags')"><a v-bind:href="MakeEntityIntoALink(tag, 'Tag')" v-html="tag.fields.Name"></a></li>
-      </ul>
-      <p class="text-muted byline">
-        By
-          <span v-for="author in LookupRelatedItems(entry, 'Authors')">
-            {{author.fields.Name}} &nbsp;
-          </span>
-        on
-          <span>
-            {{entry.createdTime | DatePretty}}
-          </span>
-      </p>
-    </div> <!-- entry detail header !-->
-    <div class="entryDetailContentOuter">
+  <div class="atEntryDetailFullComponent">
+    <div class="vueComponent">
+      <entry-detail-header :entry="entry"></entry-detail-header>
+    </div> <!--vueComponent !-->
+    <div class="entryDetailContentOuter vueComponent">
       <div class="entryDetailContentInner" v-html="MarkdownContentToHtml(entry.fields.Content)"></div>
-    </div>
-  </div>
+    </div> <!--vueComponent !-->
+    </div>  <!--atEntryDetailFull !-->
 
   `,
   props: ["entry"],
   mixins: [AirBlogBase],
+  components:{
+    EntryDetailHeader
+  },
   methods: {
   },
   mounted: function() {
@@ -678,9 +705,11 @@ var BlogNavigationHeaderMenu = {
 }
 
 
+
 export {
   AirBlogBase,
   RelatedItemsBar,
+  EntryDetailHeader,
   EntryListComponent,
   EntryDetailBriefComponent,
   EntryDetailFullComponent,

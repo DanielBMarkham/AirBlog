@@ -1,6 +1,7 @@
 import {
   AirBlogBase,
   RelatedItemsBar,
+  EntryDetailHeader,
   EntryListComponent,
   EntryDetailBriefComponent,
   EntryDetailFullComponent,
@@ -360,6 +361,7 @@ function begin(airBlog) {
     mixins: [AirBlogBase],
     components: {
       RelatedItemsBar,
+      EntryDetailHeader,
       EntryListComponent,
       EntryDetailBriefComponent,
       EntryDetailFullComponent,

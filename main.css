@@ -171,8 +171,9 @@ ENTRY DETAIL FULL COMPONENT
   border-bottom: gray solid 0.1rem;
 }
 .atEntryDetailFullComponent>div.entryDetailContentOuter {
-  position: fixed;
+/*  position: fixed;
   top: 38vh;
+  */
   width: 100%;
   height: 100%;
 }
@@ -186,6 +187,11 @@ ENTRY DETAIL FULL COMPONENT
   margin-right: -2rem;
   padding-right: 2rem;
   padding-bottom: 12rem;
+}
+div.entryDetailContentInner img {
+  max-width: 90%;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .atEntryDetailFullComponent>div.entryDetailContentOuter>div.entryDetailContentInner>*:last-child {
   min-height:400px;
@@ -473,4 +479,42 @@ div.atEntryListPlainComponent div[atentity='question'] {
 }
 div.atEntryListPlainComponent div[atentity='tag'] {
 
-} 
+}
+div.atEntryDetailHeader {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+div.atEntryDetailHeader>p.byline {
+  overflow-y: hidden;
+  border-bottom: gray solid 1px;
+}
+div.atRelatedItemsBar ul.relatedItems {
+  text-align: center;
+  overflow-y: hidden;
+  padding-left: 0;
+  margin-left: 0;
+  list-style: none;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+div.atRelatedItemsBar ul.relatedItems li {
+  list-style: none;
+  display: inline;
+}
+div.atRelatedItemsBar ul.relatedItems li:after {
+  content: " \00b7";
+  font-weight: bold;
+  position: relative;
+  padding-right: .25rem;
+}
+div.atRelatedItemsBar ul.relatedItems li:last-child::after {
+  content: none;
+  padding-right: 0;
+  font-size: normal;
+  font-weight: normal;
+  position: initial;
+}
+div.atRelatedItemsBar ul.relatedItems li>a {
+  white-space: nowrap;
+}
