@@ -165,9 +165,6 @@ var EntryDetailHeader = {
   template: `
   <div class="atEntryDetailHeader">
     <h1>{{entry.fields.Title}}</h1>
-    <div class="vueComponent">
-      <related-items-bar :entry="entry"></related-items-bar>
-    </div> <!--vueComponent !-->
     <p class="text-muted byline">
       By
         <span v-for="author in LookupRelatedItems(entry, 'Authors')">
@@ -280,7 +277,7 @@ var EntryListPlainComponent = {
   template : `
   <div class="atEntryListPlainComponent">
     <div class="longTextWrapper">
-      <ul>
+      <ul class="entryListPlain">
         <li v-for="entry in entries" v-cloak>
           <a v-bind:name="entry.id"></a>
           <h2>
@@ -288,6 +285,12 @@ var EntryListPlainComponent = {
             {{entry.fields.Title}}
           </a>
           </h2>
+          <div class="vueComponent">
+            <related-items-bar :entry="entry"></related-items-bar>
+          </div>
+          <p class="text-muted">
+            {{entry.fields.Excerpt}}
+          </p>
           <p class="text-muted byline">
               By
                 <span v-for="author in LookupRelatedItems(entry, 'Authors')">
@@ -297,21 +300,8 @@ var EntryListPlainComponent = {
                 <span>
                   {{entry.createdTime | DatePretty}}
                 </span>
-            </p>
-            <div class="navbar navbar-collapse justify-content-between tagBar">
-              <div class="navbar-nav mr-auto" atentity='tag' v-for="tag in LookupRelatedItems(entry, 'Tags')">
-                <a class="nav-item nav-link btn text-dark tagLink" v-bind:href="MakeEntityIntoALink(tag, 'Tag')" :title="tag.fields.PublicDescriptionShort" v-html="tag.fields.Name"></a>
-              </div>
-              <div class="navbar-nav mr-auto" atentity='question'  v-for="question in LookupRelatedItems(entry, 'Questions')">
-                <a class="nav-item nav-link btn text-dark tagLink" v-bind:href="MakeEntityIntoALink(question, 'Question')" :title="question.fields.PublicDescriptionShort" v-html="question.fields.Name"></a>
-              </div>
-            </div>
-          <p class="text-muted">
-            {{entry.fields.Excerpt}}
           </p>
-
-
-            </li>
+        </li>
       </ul>
     </div>
   </div>
@@ -320,6 +310,9 @@ var EntryListPlainComponent = {
   `,
   props: ["entries"],
   mixins: [AirBlogBase],
+  components:{
+    RelatedItemsBar
+  }
 
 }
 

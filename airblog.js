@@ -78,7 +78,7 @@ function AB(callback) {
   const RUN_MODE = "LOCAL"; // other option is LIVE
   const API_KEY = ""; // need this for LIVE
   const APP_ID = "appQTNunJetOT3r1B";
-  const BLOGID = "recoTAnEkpSChFj9g";
+  const BLOGID = "recCGKQBlTWHqrGCu";
   const BLOGNAME = "n23";
   const PAGE_SIZE = "99"; // 99 is max. After that you gotta add paging code
   var atEntries = {};

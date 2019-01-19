@@ -215,7 +215,7 @@ div.atEntryListPlainComponent>div.longTextWrapper{
   height: 100%;
   text-align: initial;
 }
-div.atEntryListPlainComponent>div.longTextWrapper ul {
+div.atEntryListPlainComponent>div.longTextWrapper ul.entrylistplain {
   list-style: none;
   overflow-y: auto;
   height: 100%;
@@ -225,6 +225,12 @@ div.atEntryListPlainComponent>div.longTextWrapper ul {
   padding-right: 2rem;
   padding-bottom: 4rem;
 }
+div.atEntryListPlainComponent>div.longTextWrapper ul.entrylistplain>li {
+  padding-bottom: 1rem;
+  border-bottom: gray solid 1px;
+  margin-bottom: 1rem;
+}
+
 div.atEntryListPlainComponent>div.longTextWrapper .tagBar{
   padding:0;
 }
@@ -517,4 +523,12 @@ div.atRelatedItemsBar ul.relatedItems li:last-child::after {
 }
 div.atRelatedItemsBar ul.relatedItems li>a {
   white-space: nowrap;
+}
+div.atEntryDetailHeader>h1{
+  max-height: 21vh;
+  overflow-y: hidden;
+  font-size: calc(50% + 5vw);
+}
+div.atEntryDetailHeader>div.vueComponent {
+  font-size: calc(25% + 3vw);
 }
