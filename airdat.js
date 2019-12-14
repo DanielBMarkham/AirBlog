@@ -7,7 +7,6 @@ jQuery.loadScript = function (url, callback) {
     });
 }
 // Data layer
-// "old school" JS Objects -- done on-purpose
 function AB(callback){
 	that=this;
 	RUN_MODE="LOCAL"; // other option is LIVE

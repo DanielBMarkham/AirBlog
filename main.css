@@ -31,6 +31,12 @@ body {
   height: 100%;
   width: 100%;
 }
+#holder2 {
+  position: fixed;
+  top: 4rem;
+  height: 100%;
+  width: 100%;
+}
 .header {
   position: sticky;
   z-index: 1050;
@@ -43,6 +49,16 @@ body {
   margin: 0;
   padding-bottom: 7rem;
   overflow-y: hidden;
+  max-width: 70rem;
+}
+.main2 {
+  position: fixed;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 7rem;
+  max-width: 70rem;
 }
 .vueComponent {
 
@@ -187,6 +203,10 @@ ENTRY DETAIL FULL COMPONENT
   margin-right: -2rem;
   padding-right: 2rem;
   padding-bottom: 12rem;
+}
+div.entryDetailContentInner2 {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 div.entryDetailContentInner img {
   max-width: 90%;
@@ -527,7 +547,7 @@ div.atRelatedItemsBar ul.relatedItems li>a {
 div.atEntryDetailHeader>h1{
   max-height: 21vh;
   overflow-y: hidden;
-  font-size: calc(50% + 5vw);
+  font-size: calc(40% + 4vw);
 }
 div.atEntryDetailHeader>div.vueComponent {
   font-size: calc(25% + 3vw);

@@ -357,6 +357,33 @@ var EntryDetailFullComponent = {
   }
 };
 
+var EntryDetailFullComponent2 = {
+  template: `
+  <div class="atEntryDetailFullComponent2">
+    <div class="vueComponent">
+      <entry-detail-header :entry="entry"></entry-detail-header>
+    </div> <!--vueComponent !-->
+    <div class="entryDetailContentOuter2 vueComponent">
+      <div class="entryDetailContentInner2" v-html="MarkdownContentToHtml(entry.fields.Content)"></div>
+    </div> <!--vueComponent !-->
+    </div>  <!--atEntryDetailFull !-->
+
+  `,
+  props: ["entry"],
+  mixins: [AirBlogBase],
+  components:{
+    EntryDetailHeader
+  },
+  methods: {
+  },
+  mounted: function() {
+    $("#entryContent")
+      .children()
+      .last()
+      .addClass("lastContentParagraph");
+  }
+};
+
 var TagDetailComponent = {
   template: `
   <div class="atTagDetailComponent">
@@ -706,6 +733,7 @@ export {
   EntryListComponent,
   EntryDetailBriefComponent,
   EntryDetailFullComponent,
+  EntryDetailFullComponent2,
   TagDetailComponent,
   QuestionDetailComponent,
   EntryListPlainComponent,
