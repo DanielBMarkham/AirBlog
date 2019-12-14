@@ -360,12 +360,10 @@ var EntryDetailFullComponent = {
 var EntryDetailFullComponent2 = {
   template: `
   <div class="atEntryDetailFullComponent2">
-    <div class="vueComponent">
-      <entry-detail-header :entry="entry"></entry-detail-header>
-    </div> <!--vueComponent !-->
-    <div class="entryDetailContentOuter2 vueComponent">
+    <h2>
+      <div class="content" v-html="MarkdownContentToHtml(entry.fields.Title)"></div>
+    </h2>
       <div class="entryDetailContentInner2" v-html="MarkdownContentToHtml(entry.fields.Content)"></div>
-    </div> <!--vueComponent !-->
     </div>  <!--atEntryDetailFull !-->
 
   `,
